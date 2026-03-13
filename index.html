@@ -3,339 +3,571 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>战略发展部数据库</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&family=JetBrains+Mono:wght@300&display=swap" rel="stylesheet">
+    <title>战略发展部智库</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --bg-primary: #f5f3ef;
-            --bg-card: #ffffff;
-            --bg-card-hover: #fdfcfa;
-            --border: #e2ddd5;
-            --border-hover: #c9a84c;
-            --text-primary: #1a1a1f;
-            --text-secondary: #6b6870;
-            --text-dim: #9a9498;
-            --accent: #c9a84c;
-            --accent-glow: rgba(201, 168, 76, 0.12);
-            --accent-soft: rgba(201, 168, 76, 0.06);
+            --bg: #f7f5f0;
+            --bg-warm: #f0ede5;
+            --surface: #ffffff;
+            --surface-hover: #fffef9;
+            --border: #e4ddd2;
+            --border-light: #ece7df;
+            --border-accent: #b8964e;
+            --text: #1c1a17;
+            --text-mid: #5c5650;
+            --text-soft: #9b9389;
+            --text-faint: #c4bbb0;
+            --gold: #b8964e;
+            --gold-light: #d4b876;
+            --gold-dark: #97793d;
+            --gold-glow: rgba(184, 150, 78, 0.1);
+            --gold-glow-strong: rgba(184, 150, 78, 0.18);
         }
 
         body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
+            background: var(--bg);
+            color: var(--text);
             font-family: 'Noto Sans SC', sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Subtle background texture */
-        body::before {
-            content: '';
+        /* === BACKGROUND LAYERS === */
+        .bg-grid {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(ellipse at 20% 0%, rgba(201, 168, 76, 0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 100%, rgba(201, 168, 76, 0.04) 0%, transparent 50%);
+            inset: 0;
+            z-index: 0;
+            opacity: 0.25;
+            background-image:
+                linear-gradient(var(--border-light) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border-light) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at 50% 25%, black 10%, transparent 65%);
+            -webkit-mask-image: radial-gradient(ellipse at 50% 25%, black 10%, transparent 65%);
+        }
+
+        .bg-noise {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 256px 256px;
+            pointer-events: none;
+        }
+
+        .float-orb {
+            position: fixed;
+            border-radius: 50%;
             pointer-events: none;
             z-index: 0;
         }
 
-        .container {
-            max-width: 860px;
-            margin: 0 auto;
-            padding: 0 32px;
-            position: relative;
-            z-index: 1;
+        .float-orb.orb-1 {
+            width: 500px; height: 500px;
+            top: -150px; right: -120px;
+            background: radial-gradient(circle, var(--gold-glow) 0%, transparent 65%);
+            animation: orbFloat1 14s ease-in-out infinite;
         }
 
-        /* Header */
+        .float-orb.orb-2 {
+            width: 350px; height: 350px;
+            bottom: -80px; left: -80px;
+            background: radial-gradient(circle, var(--gold-glow) 0%, transparent 65%);
+            animation: orbFloat2 18s ease-in-out infinite;
+        }
+
+        .float-orb.orb-3 {
+            width: 200px; height: 200px;
+            top: 45%; left: 50%;
+            transform: translateX(-50%);
+            background: radial-gradient(circle, var(--gold-glow-strong) 0%, transparent 70%);
+            animation: orbFloat3 10s ease-in-out infinite;
+        }
+
+        @keyframes orbFloat1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-40px, 50px) scale(1.08); }
+        }
+        @keyframes orbFloat2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -40px) scale(1.05); }
+        }
+        @keyframes orbFloat3 {
+            0%, 100% { transform: translateX(-50%) translate(0, 0) scale(1); }
+            50% { transform: translateX(-50%) translate(15px, -20px) scale(1.15); }
+        }
+
+        /* === PAGE === */
+        .page {
+            position: relative;
+            z-index: 1;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* === HEADER === */
         header {
-            padding: 80px 0 20px;
+            padding: 90px 0 24px;
             text-align: center;
         }
 
-        .logo-mark {
-            display: inline-block;
-            width: 48px;
-            height: 2px;
-            background: var(--accent);
-            margin-bottom: 32px;
+        .header-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            margin-bottom: 36px;
+            animation: revealDown 1s ease-out;
+        }
+
+        .ornament-line {
+            width: 52px; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold));
+        }
+        .ornament-line:last-child {
+            background: linear-gradient(90deg, var(--gold), transparent);
+        }
+
+        .ornament-diamond {
+            width: 10px; height: 10px;
+            border: 1.5px solid var(--gold);
+            transform: rotate(45deg);
             position: relative;
         }
-
-        .logo-mark::before,
-        .logo-mark::after {
+        .ornament-diamond::after {
             content: '';
             position: absolute;
-            width: 8px;
-            height: 8px;
-            border: 1.5px solid var(--accent);
-            top: 50%;
-            transform: translateY(-50%) rotate(45deg);
+            inset: 2px;
+            background: var(--gold);
+            opacity: 0.35;
         }
 
-        .logo-mark::before { left: -16px; }
-        .logo-mark::after { right: -16px; }
-
         h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 42px;
-            font-weight: 600;
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            color: var(--text-primary);
-            margin-bottom: 16px;
-            animation: fadeDown 0.8s ease-out;
+            font-family: 'Noto Serif SC', serif;
+            font-size: 40px;
+            font-weight: 700;
+            letter-spacing: 8px;
+            color: var(--text);
+            line-height: 1.4;
+            margin-bottom: 18px;
+            animation: revealDown 1s ease-out 0.1s both;
         }
 
         .subtitle {
-            font-size: 13px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px;
+            font-weight: 400;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--text-soft);
+            margin-bottom: 20px;
+            animation: revealDown 1s ease-out 0.2s both;
+        }
+
+        .header-desc {
+            font-size: 14px;
+            font-weight: 300;
+            color: var(--text-mid);
+            line-height: 1.8;
+            max-width: 520px;
+            margin: 0 auto;
+            animation: revealDown 1s ease-out 0.25s both;
+        }
+
+        /* === SECTION DIVIDER === */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin: 52px 0 40px;
+            animation: revealDown 0.8s ease-out 0.3s both;
+        }
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+        }
+
+        .section-tag {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
             font-weight: 300;
             letter-spacing: 4px;
             text-transform: uppercase;
-            color: var(--text-dim);
-            animation: fadeDown 0.8s ease-out 0.15s both;
+            color: var(--text-faint);
+            padding: 6px 20px;
+            border: 1px solid var(--border);
+            border-radius: 24px;
         }
 
-        /* Divider */
-        .divider {
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--border), transparent);
-            margin: 48px 0;
-        }
-
-        /* Section */
-        .section-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 11px;
-            font-weight: 300;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--text-dim);
-            margin-bottom: 28px;
-            padding-left: 4px;
-            animation: fadeDown 0.8s ease-out 0.3s both;
-        }
-
-        /* Report Cards */
-        .report-list {
+        /* === REPORT CARDS === */
+        .report-grid {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 24px;
         }
 
         .report-card {
             display: block;
             text-decoration: none;
             color: inherit;
-            background: var(--bg-card);
+            background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 28px 32px;
+            border-radius: 20px;
+            padding: 0;
             position: relative;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            animation: fadeUp 0.6s ease-out 0.4s both;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            animation: revealUp 0.7s ease-out both;
         }
+        .report-card:nth-child(1) { animation-delay: 0.4s; }
+        .report-card:nth-child(2) { animation-delay: 0.55s; }
 
+        /* Shimmer */
         .report-card::before {
             content: '';
             position: absolute;
-            left: 0;
-            top: 0;
-            width: 3px;
-            height: 100%;
-            background: var(--accent);
-            opacity: 0;
-            transition: opacity 0.4s ease;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(184, 150, 78, 0.04), transparent);
+            transition: left 0.9s ease;
+            z-index: 0;
         }
 
+        /* Gold left bar */
         .report-card::after {
             content: '';
             position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, var(--accent-soft), transparent 60%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
+            left: 0; top: 50%;
+            transform: translateY(-50%);
+            width: 4px; height: 0;
+            background: linear-gradient(180deg, var(--gold-light), var(--gold), var(--gold-dark));
+            border-radius: 0 3px 3px 0;
+            transition: height 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 2;
         }
 
         .report-card:hover {
-            border-color: var(--border-hover);
-            background: var(--bg-card-hover);
-            transform: translateX(4px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 0 80px var(--accent-glow);
+            border-color: var(--border-accent);
+            background: var(--surface-hover);
+            transform: translateY(-4px);
+            box-shadow:
+                0 16px 48px rgba(0, 0, 0, 0.07),
+                0 6px 16px rgba(0, 0, 0, 0.03),
+                0 0 0 1px var(--gold-glow),
+                0 0 80px var(--gold-glow);
         }
-
-        .report-card:hover::before { opacity: 1; }
-        .report-card:hover::after { opacity: 1; }
+        .report-card:hover::before { left: 100%; }
+        .report-card:hover::after { height: 50%; }
+        .report-card:hover .card-number { color: var(--gold); border-color: var(--gold); }
         .report-card:hover .card-arrow { opacity: 1; transform: translateX(0); }
-        .report-card:hover .card-tag { background: var(--accent); color: var(--bg-primary); }
+        .report-card:hover .card-enter { opacity: 1; transform: translateY(0); }
 
-        .card-content {
+        /* Card Top Section */
+        .card-top {
             position: relative;
             z-index: 1;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
+            gap: 24px;
+            padding: 32px 36px;
         }
 
-        .card-info {
+        .card-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 400;
+            color: var(--text-faint);
+            line-height: 1;
+            min-width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: all 0.4s ease;
+            flex-shrink: 0;
+        }
+
+        .card-main {
             flex: 1;
         }
 
+        .card-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 6px;
+        }
+
         .card-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 20px;
+            font-family: 'Noto Serif SC', serif;
+            font-size: 21px;
             font-weight: 600;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-            color: var(--text-primary);
+            letter-spacing: 1px;
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .card-arrow {
+            font-size: 22px;
+            color: var(--gold);
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            flex-shrink: 0;
+        }
+
+        .card-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--text-soft);
+            letter-spacing: 2px;
+            margin-bottom: 14px;
         }
 
         .card-desc {
             font-size: 13px;
             font-weight: 300;
-            color: var(--text-secondary);
-            letter-spacing: 0.3px;
+            color: var(--text-mid);
+            line-height: 1.9;
+            max-width: 580px;
         }
 
-        .card-meta {
+        .card-footer-row {
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .card-enter {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 13px;
+            color: var(--gold);
+            letter-spacing: 2px;
+            opacity: 1;
+            transition: all 0.5s ease;
+        }
+
+        /* === STATS BAR === */
+        .stats-bar {
             display: flex;
-            align-items: center;
-            gap: 16px;
+            justify-content: center;
+            gap: 64px;
+            margin-top: 60px;
+            padding: 36px 0;
+            border-top: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
+            animation: revealUp 0.7s ease-out 0.7s both;
         }
 
-        .card-tag {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 10px;
-            letter-spacing: 1.5px;
+        .stat-item {
+            text-align: center;
+            position: relative;
+        }
+
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -32px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 36px;
+            background: var(--border);
+        }
+
+        .stat-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 36px;
+            font-weight: 300;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 2.5px;
             text-transform: uppercase;
-            padding: 5px 12px;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            color: var(--text-dim);
-            transition: all 0.4s ease;
-            white-space: nowrap;
+            color: var(--text-faint);
         }
 
-        .card-arrow {
-            font-size: 20px;
-            color: var(--accent);
-            opacity: 0;
-            transform: translateX(-8px);
-            transition: all 0.4s ease;
-        }
-
-        /* Footer */
+        /* === FOOTER === */
         footer {
             text-align: center;
-            padding: 64px 0 48px;
-            animation: fadeUp 0.6s ease-out 0.6s both;
+            padding: 52px 0 60px;
+            animation: revealUp 0.7s ease-out 0.85s both;
         }
 
-        .footer-line {
-            width: 24px;
-            height: 1px;
-            background: var(--text-dim);
-            margin: 0 auto 16px;
+        .footer-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 18px;
+        }
+
+        .footer-dot {
+            width: 3px; height: 3px;
+            background: var(--text-faint);
+            border-radius: 50%;
+        }
+
+        .footer-dot.center {
+            width: 6px; height: 6px;
+            background: var(--gold);
+            opacity: 0.4;
+            transform: rotate(45deg);
+            border-radius: 1px;
         }
 
         footer p {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 11px;
-            color: var(--text-dim);
-            letter-spacing: 2px;
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            color: var(--text-faint);
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
 
-        /* Animations */
-        @keyframes fadeDown {
-            from { opacity: 0; transform: translateY(-16px); }
+        /* === ANIMATIONS === */
+        @keyframes revealDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes revealUp {
+            from { opacity: 0; transform: translateY(28px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            header { padding: 56px 0 16px; }
-            h1 { font-size: 28px; letter-spacing: 4px; }
-            .report-card { padding: 22px 20px; }
-            .card-content { flex-direction: column; align-items: flex-start; gap: 14px; }
-            .card-meta { align-self: flex-end; }
+        /* === RESPONSIVE === */
+        @media (max-width: 640px) {
+            .page { padding: 0 20px; }
+            header { padding: 60px 0 20px; }
+            h1 { font-size: 26px; letter-spacing: 4px; }
+            .subtitle { font-size: 13px; letter-spacing: 4px; }
+            .header-desc { font-size: 13px; }
+            .card-top { padding: 24px 20px; flex-direction: column; gap: 14px; }
+            .card-title { font-size: 18px; }
+            .card-number { min-width: 36px; height: 36px; font-size: 18px; }
+            .stats-bar { gap: 32px; padding: 28px 0; }
+            .stat-item:not(:last-child)::after { right: -16px; height: 28px; }
+            .stat-num { font-size: 28px; }
+            .card-enter { display: none; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="bg-grid"></div>
+    <div class="bg-noise"></div>
+    <div class="float-orb orb-1"></div>
+    <div class="float-orb orb-2"></div>
+    <div class="float-orb orb-3"></div>
+
+    <div class="page">
         <header>
-            <div class="logo-mark"></div>
-            <h1>战略发展部数据库</h1>
-            <p class="subtitle">Intelligence &amp; Research Hub</p>
+            <div class="header-ornament">
+                <span class="ornament-line"></span>
+                <span class="ornament-diamond"></span>
+                <span class="ornament-line"></span>
+            </div>
+            <h1>战略发展部智库</h1>
+            <p class="subtitle">Intelligence &amp; Research</p>
         </header>
 
-        <div class="divider"></div>
+        <div class="section-divider">
+            <span class="section-tag">Report Libraries</span>
+        </div>
 
-        <p class="section-label">— Reports</p>
+        <div class="report-grid">
 
-        <div class="report-list">
+            <!-- 报告库 01 -->
             <a href="strategy-dev-intelligence-repository.html" class="report-card">
-                <div class="card-content">
-                    <div class="card-info">
-                        <div class="card-title">战略发展部行业报告库</div>
-                        <div class="card-desc">Strategy Dev Intelligence Repository</div>
-                    </div>
-                    <div class="card-meta">
-                        <span class="card-tag">Report</span>
-                        <span class="card-arrow">→</span>
+                <div class="card-top">
+                    <span class="card-number">01</span>
+                    <div class="card-main">
+                        <div class="card-title-row">
+                            <div class="card-title">游戏行业报告库</div>
+                            <span class="card-arrow">→</span>
+                        </div>
+                        <div class="card-subtitle">Strategy Dev Intelligence Repository</div>
+                        <div class="card-desc">收录游戏行业第三方研究报告，覆盖市场趋势、用户洞察、竞争格局等多个维度，持续追踪行业动态与前沿变化。</div>
+                        <div class="card-footer-row">
+                            <span class="card-enter">进入报告库 →</span>
+                        </div>
                     </div>
                 </div>
             </a>
 
+            <!-- 报告库 02 -->
             <a href="annual-report-2025.html" class="report-card">
-                <div class="card-content">
-                    <div class="card-info">
-                        <div class="card-title">上市游戏公司财报全景分析</div>
-                        <div class="card-desc">Annual Report 2025</div>
-                    </div>
-                    <div class="card-meta">
-                        <span class="card-tag">Report</span>
-                        <span class="card-arrow">→</span>
+                <div class="card-top">
+                    <span class="card-number">02</span>
+                    <div class="card-main">
+                        <div class="card-title-row">
+                            <div class="card-title">上市游戏公司财报全景分析</div>
+                            <span class="card-arrow">→</span>
+                        </div>
+                        <div class="card-subtitle">Annual Report</div>
+                        <div class="card-desc">深度解析 A 股游戏板块上市公司财报，涵盖行业大盘走势、核心财务指标、游戏业务拆解及重点企业详解，全景呈现板块财务图景。</div>
+                        <div class="card-footer-row">
+                            <span class="card-enter">进入报告库 →</span>
+                        </div>
                     </div>
                 </div>
             </a>
 
-            <!-- 新增报告模板：复制下面这段，修改 href、标题和描述即可
-            <a href="your-report-name.html" class="report-card">
-                <div class="card-content">
-                    <div class="card-info">
-                        <div class="card-title">报告标题</div>
-                        <div class="card-desc">报告描述</div>
-                    </div>
-                    <div class="card-meta">
-                        <span class="card-tag">Report</span>
-                        <span class="card-arrow">→</span>
+            <!-- 新增报告库模板：复制这段，修改序号、href、标题和描述
+            <a href="your-file.html" class="report-card">
+                <div class="card-top">
+                    <span class="card-number">03</span>
+                    <div class="card-main">
+                        <div class="card-title-row">
+                            <div class="card-title">报告库标题</div>
+                            <span class="card-arrow">→</span>
+                        </div>
+                        <div class="card-subtitle">English Subtitle</div>
+                        <div class="card-desc">报告库的简介描述，2-3行。</div>
+                        <div class="card-footer-row">
+                            <span class="card-enter">进入报告库 →</span>
+                        </div>
                     </div>
                 </div>
             </a>
             -->
+
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-num">2</div>
+                <div class="stat-label">报告库</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">∞</div>
+                <div class="stat-label">持续更新</div>
+            </div>
         </div>
 
         <footer>
-            <div class="footer-line"></div>
-            <p>YOKA &copy; 2025</p>
+            <div class="footer-ornament">
+                <span class="footer-dot"></span>
+                <span class="footer-dot center"></span>
+                <span class="footer-dot"></span>
+            </div>
+            <p>Yoka &copy; 2025</p>
         </footer>
     </div>
 </body>
