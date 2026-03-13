@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2025年A股游戏公司财报分析</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+/* ── DESIGN SYSTEM: light warm + red accent ── */
+:root{
+  --bg:       #f7f5f0;
+  --bg2:      #f0ede6;
+  --bg3:      #ffffff;
+  --bg4:      #ede9e1;
+  --border:   #ddd8ce;
+  --border2:  #e8e3da;
+  --text:     #1a1714;
+  --text2:    #5a5550;
+  --text3:    #9a948c;
+  --red:      #c8302a;
+  --red2:     #a02020;
+  --red-bg:   rgba(200,48,42,0.08);
+  --red-dim:  rgba(200,48,42,0.04);
+  --blue:     #1a5fa0;
+  --blue-bg:  rgba(26,95,160,0.07);
+  --green:    #1a7a3a;
+  --green-bg: rgba(26,122,58,0.07);
+  --gold:     #8a6010;
+  --gold-bg:  rgba(138,96,16,0.07);
+  --accent:   #c8302a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden;line-height:1.6;}
+
+/* ── SCROLL NAV ── */
+.scroll-nav{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:200;display:flex;flex-direction:column;gap:2px;}
+.scroll-item{display:flex;align-items:center;gap:0;cursor:pointer;padding:5px 16px 5px 12px;border-radius:4px 0 0 4px;transition:background .2s;}
+.scroll-item:hover{background:var(--bg4);}
+.scroll-item .s-dot{width:6px;height:6px;border-radius:50%;background:var(--border);border:1.5px solid var(--border);flex-shrink:0;transition:all .25s;margin-right:8px;}
+.scroll-item .s-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);white-space:nowrap;transition:color .25s;}
+.scroll-item.active .s-dot{background:var(--red);border-color:var(--red);transform:scale(1.4);}
+.scroll-item.active .s-label{color:var(--text);font-weight:600;}
+
+/* ── SECTIONS ── */
+.section{min-height:100vh;padding:72px 64px;border-bottom:1px solid var(--border2);}
+.section:nth-child(even){background:var(--bg2);}
+
+/* ── COVER ── */
+#sec-cover{display:flex;flex-direction:column;justify-content:center;background:var(--bg);position:relative;overflow:hidden;}
+.cover-meta{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--text3);text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+.cover-meta::before{content:'';width:28px;height:1px;background:var(--red);}
+.cover-title{font-family:'Noto Serif SC',serif;font-size:clamp(42px,5.5vw,76px);line-height:1.1;color:var(--text);margin-bottom:8px;}
+.cover-title em{font-style:normal;color:var(--red);}
+.cover-rule{width:48px;height:2px;background:var(--red);margin:24px 0;}
+.cover-desc{max-width:560px;font-size:14px;line-height:1.8;color:var(--text2);margin-bottom:40px;}
+.cover-stats{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;max-width:400px;}
+.cover-stat{background:var(--bg3);padding:16px 24px;display:flex;align-items:center;gap:20px;}
+.cover-stat-left{display:flex;flex-direction:column;min-width:120px;}
+.cover-stat .cs-tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--text2);text-transform:uppercase;margin-bottom:4px;}
+.cover-stat .cs-num{font-family:'DM Mono',monospace;font-size:30px;font-weight:500;color:var(--red);line-height:1;}
+.cover-stat-right{border-left:1px solid var(--border);padding-left:20px;display:flex;flex-direction:column;gap:1px;}
+.cover-stat .cs-co{font-size:15px;font-weight:600;color:var(--text);}
+.cover-stat .cs-lbl{font-size:12px;color:var(--text2);}
+/* keep old classes working too */
+.cover-stat .num{font-family:'DM Mono',monospace;font-size:28px;font-weight:500;color:var(--red);line-height:1;}
+.cover-stat .lbl-co{font-family:'DM Mono',monospace;font-size:13px;font-weight:600;color:var(--text);margin-top:5px;}
+.cover-stat .lbl{font-size:11px;color:var(--text2);margin-top:3px;}
+.cover-bg-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border2) 1px,transparent 1px),linear-gradient(90deg,var(--border2) 1px,transparent 1px);background-size:40px 40px;opacity:.4;pointer-events:none;}
+.cover-bg-glow{position:absolute;right:-10%;top:20%;width:600px;height:600px;background:radial-gradient(circle,rgba(224,64,64,0.06) 0%,transparent 65%);pointer-events:none;}
+.scroll-hint{position:absolute;bottom:36px;left:64px;font-family:'DM Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:2px;display:flex;align-items:center;gap:10px;}
+.scroll-hint::before{content:'';width:28px;height:1px;background:var(--text3);}
+
+/* ── SEC HEADERS ── */
+.sec-header{margin-bottom:36px;}
+.sec-eyebrow{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;color:var(--red);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.sec-eyebrow::before{content:'';width:20px;height:1px;background:var(--red);}
+.sec-title{font-family:'Noto Serif SC',serif;font-size:32px;color:var(--text);line-height:1.2;margin-bottom:12px;}
+.sec-summary{font-size:13px;line-height:1.85;color:var(--text2);max-width:820px;border-left:2px solid var(--red);padding-left:14px;}
+
+/* ── KPI ── */
+.kpi-row{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:28px;}
+.kpi{background:var(--bg3);padding:16px 14px;}
+.kpi .kl{font-family:'DM Mono',monospace;font-size:11px;color:var(--text2);letter-spacing:.5px;margin-bottom:7px;}
+.kpi .kv{font-size:18px;font-weight:600;color:var(--text);line-height:1;margin-bottom:5px;}
+.kpi .ks{font-size:11px;color:var(--text2);}
+.up{color:var(--green)!important;}
+.dn{color:var(--red)!important;}
+
+/* ── CHARTS ── */
+.chart-row{display:grid;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:16px;}
+.c2{grid-template-columns:1fr 1fr;}
+.c3{grid-template-columns:1fr 1fr 1fr;}
+.c64{grid-template-columns:6fr 4fr;}
+.chart-box{background:var(--bg3);padding:20px;}
+.chart-box.solo{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:20px;margin-bottom:16px;}
+.chart-box h4{font-family:'DM Mono',monospace;font-size:12px;color:var(--text);margin-bottom:4px;display:flex;align-items:center;gap:6px;letter-spacing:.3px;}
+.chart-box h4::before{content:'';width:2px;height:12px;background:var(--red);border-radius:1px;flex-shrink:0;}
+.chart-box .csub{font-family:'DM Mono',monospace;font-size:11px;color:var(--text2);margin-bottom:12px;}
+canvas{max-height:260px;}
+
+/* ── INSIGHTS (editorial prose style) ── */
+.ins-row{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin:24px 0 16px;}
+.ins-box{padding:0 0 0 16px;border-left:2px solid var(--border);}
+.ins-tag{display:inline-block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;padding:0;margin-bottom:6px;text-transform:uppercase;background:none;border:none;}
+.ta{color:var(--blue);}
+.tp{color:var(--green);}
+.tn{color:var(--red);}
+.to{color:var(--gold);}
+.ins-box h5{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:600;color:var(--text);margin-bottom:8px;line-height:1.45;}
+.ins-box p,.ins-box li{font-size:13px;line-height:1.85;color:var(--text2);}
+.ins-box ul{padding-left:14px;}
+.ins-box li{margin-bottom:2px;}
+.conclusion{margin-top:10px;padding:6px 0;border-top:1px solid var(--border2);font-size:12px;color:var(--text2);line-height:1.75;}
+.conclusion strong{color:var(--red);font-weight:600;}
+
+/* ── TABLE ── */
+.table-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:11.5px;}
+thead tr{border-bottom:1px solid var(--border);}
+th{padding:8px 10px;text-align:left;color:#5a5550;font-weight:600;font-family:'DM Mono',monospace;font-size:10px;white-space:nowrap;letter-spacing:.5px;}
+td{padding:8px 10px;border-bottom:1px solid var(--border2);color:var(--text);white-space:nowrap;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:var(--bg4);}
+.pos{color:var(--green);font-weight:600;}
+.neg{color:var(--red);font-weight:600;}
+.mono{font-family:'DM Mono',monospace;}
+
+/* ── RANK ── */
+.rank-list{display:flex;flex-direction:column;}
+.rank-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border2);}
+.rank-item:last-child{border-bottom:none;}
+.rank-item:hover{background:var(--bg4);margin:0 -8px;padding:10px 8px;border-radius:4px;}
+.rnum{font-family:'DM Mono',monospace;font-size:11px;color:var(--text3);width:20px;text-align:center;flex-shrink:0;}
+.rnum.g{color:var(--gold);font-weight:700;}
+.rnum.s{color:var(--text2);font-weight:700;}
+.rnum.b{color:#b07040;font-weight:700;}
+.rinfo{flex:1;}
+.rname{font-size:13px;font-weight:600;color:var(--text);}
+.rsub{font-size:11px;color:var(--text2);font-family:'DM Mono',monospace;margin-top:1px;}
+.rbar{flex:2;height:4px;background:var(--bg4);border-radius:2px;overflow:hidden;}
+.rbar-fill{height:100%;border-radius:2px;}
+.rval{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;width:60px;text-align:right;}
+
+/* ── DEEP ANALYSIS ── */
+.dc{background:var(--bg3);border:1px solid var(--border);border-radius:6px;margin-bottom:16px;overflow:hidden;}
+.dc-head{background:var(--bg);border-bottom:1px solid var(--border);padding:20px 24px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.dc-head-left{}
+.dc-code{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1.5px;color:var(--text2);margin-bottom:3px;}
+.dc-name{font-family:'Noto Serif SC',serif;font-size:24px;color:var(--text);line-height:1;}
+.dc-type{display:inline-block;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.5px;padding:3px 10px;border-radius:2px;margin-top:5px;}
+.dc-metrics{display:flex;gap:0;border:1px solid var(--border);border-radius:5px;overflow:hidden;}
+.dc-metric{padding:10px 16px;border-right:1px solid var(--border);text-align:center;}
+.dc-metric:last-child{border-right:none;}
+.dc-metric .mv{font-family:'DM Mono',monospace;font-size:15px;font-weight:500;color:var(--text);line-height:1;}
+.dc-metric .mv.mup{color:var(--green);}
+.dc-metric .mv.mdn{color:var(--red);}
+.dc-metric .ml{font-size:11px;color:var(--text2);margin-top:4px;font-family:'DM Mono',monospace;}
+.dc-body{display:grid;grid-template-columns:1fr 1fr;}
+.dc-col{padding:20px 24px;border-right:1px solid var(--border2);border-top:1px solid var(--border2);}
+.dc-col:last-child{border-right:none;}
+.dc-col h6{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--red);text-transform:uppercase;margin-bottom:8px;}
+.dc-col p{font-size:13px;line-height:1.85;color:var(--text2);}
+.dc-verdict{border-top:1px solid var(--border);padding:14px 24px;background:var(--red-dim);display:flex;gap:10px;align-items:flex-start;}
+.dv-icon{font-size:14px;flex-shrink:0;margin-top:2px;}
+.dv-text{font-size:13px;line-height:1.8;color:var(--text2);}
+.dv-text strong{font-weight:600;color:var(--red);display:inline;margin-right:4px;}
+
+/* TREND GRID */
+.trend-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-top:16px;}
+.trend-card{background:var(--bg3);padding:18px;}
+.tc-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--red);margin-bottom:6px;letter-spacing:.5px;}
+.trend-card h6{font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;}
+.trend-card p{font-size:13px;line-height:1.75;color:var(--text2);}
+.evidence{margin-top:8px;font-size:11px;font-family:'DM Mono',monospace;color:var(--text2);border-top:1px solid var(--border2);padding-top:7px;}
+
+.footer{text-align:center;padding:36px;font-family:'DM Mono',monospace;font-size:12px;color:var(--text2);letter-spacing:.5px;border-top:1px solid var(--border);}
+
+/* ── TIMELINE PHASES ── */
+.phase-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin:24px 0 20px;}
+.phase{background:var(--bg3);padding:18px 20px;border-top:3px solid var(--border);}
+.phase.ps-dn{border-top-color:var(--red);}
+.phase.ps-up{border-top-color:var(--green);}
+.phase.ps-ok{border-top-color:var(--blue);}
+.phase-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.phase-num{font-family:'DM Mono',monospace;font-size:20px;font-weight:600;line-height:1;}
+.phase.ps-dn .phase-num{color:var(--red);}
+.phase.ps-up .phase-num{color:var(--green);}
+.phase.ps-ok .phase-num{color:var(--blue);}
+.phase-meta{display:flex;flex-direction:column;}
+.phase-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--text3);}
+.phase-title{font-size:13px;font-weight:600;color:var(--text);line-height:1.3;}
+.phase p{font-size:12px;line-height:1.8;color:var(--text2);}
+.phase .p-arrow{margin-top:8px;font-size:11px;color:var(--text3);line-height:1.6;padding-top:6px;border-top:1px dashed var(--border2);}
+.phase .p-arrow strong{font-weight:600;}
+
+/* ── COLLAPSIBLE TABLE ── */
+.tbl-preview{position:relative;max-height:280px;overflow:hidden;transition:max-height .4s ease;}
+.tbl-preview::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(transparent,var(--bg3));pointer-events:none;transition:opacity .3s;}
+.tbl-preview.open{max-height:none;}
+.tbl-preview.open::after{opacity:0;}
+.tbl-toggle{display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;padding:10px 0;user-select:none;}
+.tbl-toggle:hover{opacity:.65;}
+.tbl-toggle .tgl-icon{font-size:10px;color:var(--text3);transition:transform .3s;}
+.tbl-toggle.open .tgl-icon{transform:rotate(180deg);}
+.tbl-toggle .tgl-label{font-family:'DM Mono',monospace;font-size:11px;color:var(--text3);letter-spacing:.5px;}
+
+/* ── TIER FEATURE CARDS ── */
+.tier-features{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin:16px 0;}
+.tier-feat{background:var(--bg3);padding:20px 22px;}
+.tier-feat-title{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.tier-feat-title::before{content:'';width:3px;height:14px;border-radius:1px;flex-shrink:0;}
+.tier-feat.t-head .tier-feat-title{color:var(--red);}
+.tier-feat.t-head .tier-feat-title::before{background:var(--red);}
+.tier-feat.t-mid .tier-feat-title{color:var(--gold);}
+.tier-feat.t-mid .tier-feat-title::before{background:var(--gold);}
+.tier-feat.t-tail .tier-feat-title{color:var(--text3);}
+.tier-feat.t-tail .tier-feat-title::before{background:var(--text3);}
+.tier-feat li{font-size:12.5px;line-height:1.85;color:var(--text2);margin-bottom:2px;}
+.tier-feat ul{padding-left:14px;}
+
+@media(max-width:1000px){
+  .section{padding:56px 18px;}
+  .kpi-row{grid-template-columns:repeat(3,1fr);}
+  .c2,.c3,.c64{grid-template-columns:1fr;}
+  .ins-row{grid-template-columns:1fr;gap:20px;}
+  .phase-row{grid-template-columns:1fr;}
+  .dc-body{grid-template-columns:1fr;}
+  .trend-grid{grid-template-columns:1fr;}
+  .scroll-nav{display:none;}
+  .cover-stats{flex-direction:column;}
+  .dc-metrics{flex-wrap:wrap;}
+  .tier-features{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav class="scroll-nav">
+  <div class="scroll-item active" onclick="goTo('sec-cover')"><div class="s-dot"></div><span class="s-label">封面</span></div>
+  <div class="scroll-item" onclick="goTo('sec-overview')"><div class="s-dot"></div><span class="s-label">整体概览</span></div>
+  <div class="scroll-item" onclick="goTo('sec-index')"><div class="s-dot"></div><span class="s-label">大盘走势</span></div>
+  <div class="scroll-item" onclick="goTo('sec-market')"><div class="s-dot"></div><span class="s-label">市值变化</span></div>
+  <div class="scroll-item" onclick="goTo('sec-revenue')"><div class="s-dot"></div><span class="s-label">营业收入</span></div>
+  <div class="scroll-item" onclick="goTo('sec-profit')"><div class="s-dot"></div><span class="s-label">盈利能力</span></div>
+  <div class="scroll-item" onclick="goTo('sec-cashflow')"><div class="s-dot"></div><span class="s-label">现金流</span></div>
+  <div class="scroll-item" onclick="goTo('sec-game')"><div class="s-dot"></div><span class="s-label">游戏业务</span></div>
+  <div class="scroll-item" onclick="goTo('sec-deep')"><div class="s-dot"></div><span class="s-label">重点公司</span></div>
+</nav>
+
+<!-- ══ COVER ══ -->
+<section class="section" id="sec-cover">
+  <div class="cover-bg-grid"></div>
+  <div class="cover-bg-glow"></div>
+  <div class="cover-meta">A-SHARE GAMING SECTOR · ANNUAL REPORT · 2025</div>
+  <h1 class="cover-title">A股游戏公司<br><em>财报</em>年度分析</h1>
+  <div class="cover-rule"></div>
+  <p class="cover-desc">覆盖沪深两市40家游戏及泛娱乐上市公司，深度解读2024全年财务数据与2025年Q1经营情况，结合行业趋势、竞争格局与政策环境，呈现A股游戏板块的完整财务图景。</p>
+  <div class="cover-stats">
+    <div class="cover-stat">
+      <div class="cover-stat-left"><div class="cs-tag">营收规模第一</div><div class="cs-num">174.4亿</div></div>
+      <div class="cover-stat-right"><div class="cs-co">三七互娱</div><div class="cs-lbl">同比 +5.4%</div></div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-left"><div class="cs-tag">营收增速第一</div><div class="cs-num">+70.3%</div></div>
+      <div class="cover-stat-right"><div class="cs-co">世纪华通</div><div class="cs-lbl">营收 226.2亿元</div></div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-left"><div class="cs-tag">净利润规模第一</div><div class="cs-num">26.7亿</div></div>
+      <div class="cover-stat-right"><div class="cs-co">三七互娱</div><div class="cs-lbl">净利率 15.3%</div></div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-left"><div class="cs-tag">净利润增速第一</div><div class="cs-num">+131%</div></div>
+      <div class="cover-stat-right"><div class="cs-co">世纪华通</div><div class="cs-lbl">净利润 12.1亿元</div></div>
+    </div>
+  </div>
+  <div class="scroll-hint">向下滚动继续</div>
+</section>
+
+<!-- ══ OVERVIEW ══ -->
+<section class="section" id="sec-overview">
+  <div class="sec-header">
+    <div class="sec-eyebrow">01 · Overview</div>
+    <h2 class="sec-title">整体概览</h2>
+    <p class="sec-summary">2024年A股游戏板块营收微增但结构分化加剧：22家盈利、18家亏损，出海能力成为区分公司成长性的核心变量。以下为本报告核心结论。</p>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi"><div class="kl">板块总营收</div><div class="kv">~1041亿</div><div class="ks up">↑ +3.2% 同比</div></div>
+    <div class="kpi"><div class="kl">营收第一</div><div class="kv">三七互娱</div><div class="ks">174.4亿元</div></div>
+    <div class="kpi"><div class="kl">净利润第一</div><div class="kv">三七互娱</div><div class="ks up">26.7亿元</div></div>
+    <div class="kpi"><div class="kl">市值第一</div><div class="kv">三六零</div><div class="ks">732亿</div></div>
+    <div class="kpi"><div class="kl">营收增速最快</div><div class="kv">世纪华通</div><div class="ks up">↑ +70.3%</div></div>
+    <div class="kpi"><div class="kl">营收降幅最大</div><div class="kv">完美世界</div><div class="ks dn">↓ -28.5%</div></div>
+  </div>
+
+  <div class="chart-row c2">
+    <div class="chart-box"><h4>2024年营收 TOP15（亿元）</h4><div class="csub">深浅对应营收高低</div><canvas id="c-rev-top"></canvas></div>
+    <div class="chart-box"><h4>2024年净利润 TOP10（亿元）</h4><div class="csub">仅显示盈利公司，深浅对应利润大小</div><canvas id="c-prof-top"></canvas></div>
+  </div>
+  <div class="chart-row c2">
+    <div class="chart-box"><h4>营收同比增长区间分布</h4><div class="csub">40家公司按增速归类 · 2024年</div><canvas id="c-rev-dist"></canvas></div>
+    <div class="chart-box"><h4>盈亏格局（2024年归母净利润）</h4><div class="csub">22家盈利 / 18家亏损</div><canvas id="c-pnl-pie"></canvas></div>
+  </div>
+
+  <div class="ins-row">
+    <div class="ins-box">
+      <div class="ins-tag tn">结论一 · 行业格局</div>
+      <h5>马太效应持续强化，头部公司优势进一步扩大</h5>
+      <p>头部2家公司（世纪华通、三七互娱）营收合计约400亿元，占样本总营收近30%，游戏收入占有游戏业务公司总额的57%以上。中小公司在内容储备、渠道资源、出海能力上的差距难以快速弥合，行业洗牌进程加速，尾部公司面临被并购或退出市场的战略抉择。</p>
+      <div class="conclusion"><strong>→</strong>规模效应在买量成本、本地化投入、AI研发上均有明显体现，头部公司的竞争壁垒正在加深，行业格局向集中化演进的趋势不会逆转。</div>
+    </div>
+    <div class="ins-box">
+      <div class="ins-tag ta">结论二 · 增长结构</div>
+      <h5>国内市场增速放缓，出海成为核心增长引擎</h5>
+      <p>2024年板块总营收同比仅增3.6%，多数公司营收持平或下滑，但结构性亮点突出：世纪华通（+70.3%）、恺英网络（+19.2%）、神州泰岳（+8.2%）等出海型公司逆势高增，三七互娱国内+海外双轮驱动实现稳健增长（+5.4%）。国内市场并非全面收缩，而是增量空间高度集中于具备出海能力的公司。</p>
+      <div class="conclusion"><strong>→</strong>出海能力已从"加分项"变为"必选项"，能否在中东、东南亚、拉美构建稳定流量体系，是判断公司未来增长能力的核心指标。</div>
+    </div>
+  </div>
+  <div class="ins-row">
+    <div class="ins-box">
+      <div class="ins-tag to">结论三 · 费用变化</div>
+      <h5>销售费用向头部集中，研发投入整体持平</h5>
+      <p>2024年板块销售费用率从23.6%升至26.4%，增量几乎全部来自头部公司的出海买量投入加码，其余公司销售费用合计基本持平，部分公司主动收缩。研发费用总额与2023年基本持平，费用率微降，整体投入节奏趋于保守。</p>
+      <div class="conclusion"><strong>→</strong>头部公司"重金买量出海"的策略正在拉开与中小公司的费用结构差距，费用端的分化趋势与收入端高度一致。</div>
+    </div>
+    <div class="ins-box">
+      <div class="ins-tag tp">结论四 · AI落地</div>
+      <h5>AI工具初步降本，商业化路径仍在摸索</h5>
+      <p>多家公司将AI应用于美术批量生产、NPC对话、剧情生成等环节，部分公司披露研发效率有所提升。昆仑万维转型最为激进，天工大模型与星野AI陪伴平台已有一定用户规模，但整体商业化进展慢于预期。</p>
+      <div class="conclusion"><strong>→</strong>AI在研发侧的降本效果已初步显现，但作为独立收入来源尚处早期阶段，2025年是检验各公司AI战略能否转化为实际营收的关键窗口。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ INDEX ══ -->
+<section class="section" id="sec-index">
+  <div class="sec-header">
+    <div class="sec-eyebrow">02 · Market Index</div>
+    <h2 class="sec-title">大盘走势</h2>
+    <p class="sec-summary">2024年A股游戏板块指数全年先抑后扬，整体呈现"前三季跑输大盘、Q4随政策行情补涨、2025年随出海业绩验证持续修复"的走势结构。</p>
+  </div>
+
+  <div class="chart-box solo">
+    <h4>游戏指数 VS 沪深300 累计收益率（2024.01 — 2025.03）</h4>
+    <div class="csub">以2024年1月1日为基准（0%），实线=游戏指数 · 虚线=沪深300</div>
+    <canvas id="c-index" style="max-height:300px"></canvas>
+  </div>
+
+  <div class="phase-row">
+    <div class="phase ps-dn">
+      <div class="phase-head"><div class="phase-num">01</div><div class="phase-meta"><div class="phase-label">Q1 — Q3</div><div class="phase-title">跑输大盘</div></div></div>
+      <p>游戏板块持续跑输沪深300，产品进入衰退期，新品储备不足，版号节奏不确定，叠加宏观消费承压。4月最大回撤超13%。</p>
+      <div class="p-arrow"><strong style="color:var(--red)">→</strong> 内容周期与监管节奏共振，基本面压力真实。</div>
+    </div>
+    <div class="phase ps-up">
+      <div class="phase-head"><div class="phase-num">02</div><div class="phase-meta"><div class="phase-label">Q4</div><div class="phase-title">政策补涨</div></div></div>
+      <p>9月末政策转向带动全面上涨，游戏板块凭借低估值和AI叙事弹性，10月单月涨幅超25%。AI概念股获额外溢价。</p>
+      <div class="p-arrow"><strong style="color:var(--green)">→</strong> 弹性源于前期回调充分，需区分估值修复与业绩驱动。</div>
+    </div>
+    <div class="phase ps-ok">
+      <div class="phase-head"><div class="phase-num">03</div><div class="phase-meta"><div class="phase-label">2025</div><div class="phase-title">业绩验证</div></div></div>
+      <p>世纪华通、恺英网络等出海公司Q1超预期，提供真实基本面支撑。指数差距收窄，预期转向业绩驱动。</p>
+      <div class="p-arrow"><strong style="color:var(--blue)">→</strong> 出海收入持续兑现是估值中枢能否稳定的关键。</div>
+    </div>
+  </div>
+  <div class="ins-row" style="grid-template-columns:1fr;">
+    <div class="ins-box">
+      <div class="ins-tag to">结构性观察</div>
+      <h5>板块指数掩盖了内部的巨大分化</h5>
+      <p>游戏指数的整体走势相对温和，但个股之间的分化幅度远超指数表现：世纪华通全年涨幅超105%，而*ST大晟跌幅近47%，两者相差逾150个百分点。以出海营收为代表的真实业绩增长，已成为决定公司股价表现的最核心变量。</p>
+      <div class="conclusion"><strong>→</strong>板块层面的指数参考意义有限，真正值得关注的是各公司出海收入的绝对规模与增速趋势，以及新产品能否在海外市场复制现有成功路径。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MARKET ══ -->
+<section class="section" id="sec-market">
+  <div class="sec-header">
+    <div class="sec-eyebrow">03 · Market Cap</div>
+    <h2 class="sec-title">市值变化分析</h2>
+    <p class="sec-summary">ST华通（+105.6%）、拓维信息（+97.9%）、巨人网络（+90.2%）领涨，均有出海业绩、AI或盈利反转等实质性催化；*ST大晟（-46.7%）、ST中青宝（-45.8%）跌幅居前，主业持续亏损叠加退市风险。本轮市值分化有真实业绩依据，但头部估值已明显偏高。</p>
+  </div>
+  <div class="chart-row c2">
+    <div class="chart-box"><h4>2025年最新市值 TOP15（亿元）</h4><div class="csub">颜色深浅对应市值大小，截至2025.06.20</div><canvas id="c-mkt-cap"></canvas></div>
+    <div class="chart-box"><h4>市值涨跌幅 · 全样本（%）</h4><div class="csub">涨幅越高颜色越深，跌幅柱另作区分</div><canvas id="c-mkt-chg"></canvas></div>
+  </div>
+  <div class="chart-box solo"><h4>市值变化完整排行榜</h4><div class="csub">从涨幅最高到跌幅最深</div>
+    <div class="tbl-preview" id="wrap-mkt"><div class="rank-list" id="rank-mkt"></div></div>
+    <div class="tbl-toggle" onclick="var w=document.getElementById('wrap-mkt');w.classList.toggle('open');this.classList.toggle('open');this.querySelector('.tgl-label').textContent=w.classList.contains('open')?'收起排行榜':'展开全部 ▼'"><span class="tgl-icon">▼</span><span class="tgl-label">展开全部 ▼</span></div>
+  </div>
+  <div class="ins-row">
+    <div class="ins-box">
+      <div class="ins-tag ta">涨幅逻辑</div>
+      <h5>强者有据：业绩支撑的市值扩张</h5>
+      <p>本轮涨幅居前的公司均有基本面支撑：世纪华通营收翻倍，巨人网络净利润+31%，拓维信息AI+游戏高增，恺英网络盈利持续攀升。出海逻辑获得显著市值溢价，头部公司市值扩张有业绩依据。</p>
+      <div class="conclusion"><strong>→</strong>市值扩张有据可查，但高速增长一旦出现边际放缓，市场预期的调整通常会快于基本面变化，需持续跟踪增速趋势。</div>
+    </div>
+    <div class="ins-box">
+      <div class="ins-tag to">风险提示</div>
+      <h5>弱者面临退市与流动性双重压力</h5>
+      <p>*ST大晟、ST中青宝、ST凯文等ST股在主业持续亏损背景下触及退市风险。核心IP缺失、用户大规模流失、现金流枯竭三重困境叠加，缺乏短期扭转路径。</p>
+      <div class="conclusion"><strong>→</strong>ST系游戏股下跌是主业恶化的合理反映，不宜博弈"乌鸡变凤凰"逻辑，需逐一甄别壳资源价值。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ REVENUE ══ -->
+<section class="section" id="sec-revenue">
+  <div class="sec-header">
+    <div class="sec-eyebrow">04 · Revenue</div>
+    <h2 class="sec-title">营业收入分析</h2>
+    <p class="sec-summary">2024年样本公司营收总额约1041亿元，整体微增。世纪华通以<strong style="color:var(--text)">226.2亿元（+70.3%）</strong>的爆发式增长领跑；完美世界（-28.5%）、姚记科技（-24.1%）明显下滑。2025年Q1分化延续，世纪华通单季营收81亿（+91%），营收结构正快速向出海型集中。</p>
+  </div>
+  <div class="chart-row c2">
+    <div class="chart-box"><h4>2023 VS 2024年营收对比 · TOP15（亿元）</h4><div class="csub">深色=2024，浅色=2023基数</div><canvas id="c-rev-cmp" style="max-height:310px"></canvas></div>
+    <div class="chart-box"><h4>2024年营收增长率 · TOP15</h4><div class="csub">深色=增速最高</div><canvas id="c-rev-growth"></canvas></div>
+  </div>
+  <div class="chart-row c2">
+    <div class="chart-box"><h4>2025Q1 VS 2024Q1营收对比（亿元）</h4><div class="csub">深色=2025Q1，浅色=2024Q1基数</div><canvas id="c-q1-cmp"></canvas></div>
+    <div class="chart-box"><h4>2025Q1营收同比增速 · 全样本</h4><div class="csub">增速越高颜色越深</div><canvas id="c-q1-growth"></canvas></div>
+  </div>
+  <div class="ins-row">
+    <div class="ins-box">
+      <div class="ins-tag tp">亮点</div>
+      <h5>世纪华通：出海驱动的结构性增长</h5>
+      <p>旗下天游SLG系列在中东、东南亚流水暴增，2024年营收226.2亿元（+70.3%），创历史新高。2025年Q1营收81.4亿元（+91.3%），势头未减，已成为A股游戏板块最大的出海受益者。</p>
+      <div class="conclusion"><strong>→</strong>世纪华通已从"中等规模内容公司"跃升为"出海平台型企业"，市值扩张（+105%）有真实业绩支撑。</div>
+    </div>
+    <div class="ins-box">
+      <div class="ins-tag tn">风险</div>
+      <h5>完美世界：内容断档导致收入塌陷</h5>
+      <p>2024年营收仅55.7亿元（-28.5%），核心IP生命周期衰退，新品青黄不接。高额研发投入（19.3亿元）短期难以变现，2025年Q1虽扭亏，可持续性仍需跟踪新品上线节奏。</p>
+      <div class="conclusion"><strong>→</strong>典型的"多出少进"困境，内容储备能否接上是关键，不确定性较高。</div>
+    </div>
+  </div>
+  <div class="chart-box solo"><h4>完整营收数据表</h4><div class="csub">按2024年营收从高到低排序</div>
+    <div class="tbl-preview" id="wrap-rev"><div class="table-wrap"><table id="t-rev"></table></div></div>
+    <div class="tbl-toggle" onclick="var w=document.getElementById('wrap-rev');w.classList.toggle('open');this.classList.toggle('open');this.querySelector('.tgl-label').textContent=w.classList.contains('open')?'收起数据表':'展开全部 ▼'"><span class="tgl-icon">▼</span><span class="tgl-label">展开全部 ▼</span></div>
+  </div>
+</section>
+
+<!-- ══ PROFIT ══ -->
+<section class="section" id="sec-profit">
+  <div class="sec-header">
+    <div class="sec-eyebrow">05 · Profitability</div>
+    <h2 class="sec-title">盈利能力分析</h2>
+    <p class="sec-summary">盈利质量两极分化是2024年最突出特征。三七互娱、恺英网络、巨人网络净利润率超30%；昆仑万维（-15.9亿）、完美世界（-12.9亿）深陷亏损。销售费用率是区分高低质量公司盈利能力的核心变量——买量型公司普遍超45%，对净利率的侵蚀极为明显。</p>
+  </div>
+  <div class="chart-row c2">
+    <div class="chart-box"><h4>2024年归母净利润（亿元）</h4><div class="csub">正值深色系，负值浅色</div><canvas id="c-net-bar"></canvas></div>
+    <div class="chart-box"><h4>净利润同比变化（2023→2024）</h4><div class="csub">改善幅度越大颜色越深</div><canvas id="c-prof-chg"></canvas></div>
+  </div>
+  <div class="chart-row c2">
+    <div class="chart-box">
+      <h4>销售费用规模 & 销售费用率（2024年）</h4>
+      <div class="csub">柱=销售费用金额（亿元，左轴） · 折线=占营收比率（%，右轴）· 按金额降序</div>
+      <canvas id="c-sale-combo" style="max-height:280px"></canvas>
+    </div>
+    <div class="chart-box">
+      <h4>研发费用规模 & 研发费用率（2024年）</h4>
+      <div class="csub">柱=研发费用金额（亿元，左轴） · 折线=占营收比率（%，右轴）· 按金额降序</div>
+      <canvas id="c-rd-combo" style="max-height:280px"></canvas>
+    </div>
+  </div>
+  <div class="ins-row">
+    <div class="ins-box">
+      <div class="ins-tag tp">高质量盈利</div>
+      <h5>恺英网络：精品化运营的超高净利率</h5>
+      <p>2024年净利润16.3亿元，净利率高达<strong style="color:var(--text)">31.8%</strong>。销售费用率33.9%（行业平均约45%），经营活动现金净流入17.5亿元，与净利润高度匹配。2025年Q1净利润5.2亿元（+21.5%），盈利趋势可见度高。</p>
+      <div class="conclusion"><strong>→</strong>"低费用+高利润率+强现金流"三位一体的稀缺标的。需关注老IP生命周期和出海新品的接棒能力。</div>
+    </div>
+    <div class="ins-box">
+      <div class="ins-tag tn">高风险亏损</div>
+      <h5>昆仑万维：AI转型的阵痛期代价</h5>
+      <p>2024年净利润-15.9亿元，同比由盈转亏。研发费用23亿元（+42%），销售费用23亿元，两项合计占收入81%。游戏主业收入萎缩至4.4亿，AI业务商业化路径仍不清晰。</p>
+      <div class="conclusion"><strong>→</strong>方向有前景，落地时间难预测。建议在AI商业化出现明确拐点信号前保持观望。</div>
+    </div>
+  </div>
+  <div class="chart-box solo"><h4>盈利能力详情数据表</h4><div class="csub">按净利润由高到低排序</div>
+    <div class="tbl-preview" id="wrap-prof"><div class="table-wrap"><table id="t-prof"></table></div></div>
+    <div class="tbl-toggle" onclick="var w=document.getElementById('wrap-prof');w.classList.toggle('open');this.classList.toggle('open');this.querySelector('.tgl-label').textContent=w.classList.contains('open')?'收起数据表':'展开全部 ▼'"><span class="tgl-icon">▼</span><span class="tgl-label">展开全部 ▼</span></div>
+  </div>
+</section>
+
+<!-- ══ CASH FLOW ══ -->
+<section class="section" id="sec-cashflow">
+  <div class="sec-header">
+    <div class="sec-eyebrow">06 · Cash Flow</div>
+    <h2 class="sec-title">现金流分析</h2>
+    <p class="sec-summary">经营活动现金流是检验盈利"含金量"的核心指标。2024年，三七互娱（31.5亿）、世纪华通（31.0亿）现金流远超净利润，盈利质量极高；而昆仑万维虽巨额亏损，经营现金流仍为正（8.9亿），说明主业仍在造血。拓维信息（-11.7亿）、卧龙地产（-2.9亿）现金持续失血，运营压力较大。</p>
+  </div>
+
+  <div class="kpi-row" style="grid-template-columns:repeat(5,1fr);">
+    <div class="kpi"><div class="kl">经营现金流最强</div><div class="kv">三七互娱</div><div class="ks up">31.5亿元</div></div>
+    <div class="kpi"><div class="kl">现金流/净利润比</div><div class="kv">世纪华通</div><div class="ks up">2.56倍</div></div>
+    <div class="kpi"><div class="kl">现金流为正占比</div><div class="kv">21 / 30</div><div class="ks">70%的公司</div></div>
+    <div class="kpi"><div class="kl">最大现金失血</div><div class="kv">汤姆猫</div><div class="ks dn">-3.5亿元</div></div>
+    <div class="kpi"><div class="kl">盈利但失血</div><div class="kv">需警惕</div><div class="ks dn">应收/存货积压</div></div>
+  </div>
+
+  <div class="chart-row c2">
+    <div class="chart-box"><h4>2024年经营活动现金流净额（亿元）</h4><div class="csub">正值深色系，负值浅色 · 按金额降序</div><canvas id="c-cfo-bar"></canvas></div>
+    <div class="chart-box"><h4>现金流 VS 净利润对比（亿元）</h4><div class="csub">柱=经营现金流 · 折线=归母净利润 · 按现金流降序</div><canvas id="c-cfo-vs-profit"></canvas></div>
+  </div>
+  <div class="chart-row c2">
+    <div class="chart-box"><h4>现金流/净利润比率（盈利公司）</h4><div class="csub">比率>1表示现金流质量优于账面利润，越高越好</div><canvas id="c-cfo-ratio"></canvas></div>
+    <div class="chart-box"><h4>现金流占营收比率（%）</h4><div class="csub">衡量每1元收入转化为经营现金的效率 · TOP15</div><canvas id="c-cfo-rev-ratio"></canvas></div>
+  </div>
+
+  <div class="ins-row">
+    <div class="ins-box">
+      <div class="ins-tag tp">高含金量</div>
+      <h5>世纪华通 & 三七互娱：现金流远超净利润</h5>
+      <p>三七互娱2024年经营现金流31.5亿元，与净利润26.7亿高度匹配，应收账款管控健康。世纪华通经营现金流31.0亿元，是净利润12.1亿的2.6倍，说明大量预收流水尚未确认收入，收入质量极高。恺英网络现金流17.1亿 vs 净利润16.3亿，比率接近1.05，几乎零水分。</p>
+      <div class="conclusion"><strong>→</strong>经营现金流/净利润比率是检验盈利质量的"验金石"，比率持续>1的公司，其利润的可持续性与分红能力远优于同业。</div>
+    </div>
+    <div class="ins-box">
+      <div class="ins-tag tn">高风险信号</div>
+      <h5>现金失血公司面临流动性压力</h5>
+      <p>拓维信息经营现金流-11.7亿，叠加净亏损，现金消耗速度惊人。卧龙地产现金流-2.9亿，游族网络-2.3亿，博瑞传播-1.2亿，持续失血下运营压力加大。琏升科技、*ST大晟现金流同样为负，规模虽小但连续恶化趋势值得警惕。</p>
+      <div class="conclusion"><strong>→</strong>连续两年经营现金流为负的公司，即使出现账面扭亏，仍需高度警惕——没有现金支撑的利润是脆弱的。</div>
+    </div>
+  </div>
+  <div class="ins-row">
+    <div class="ins-box">
+      <div class="ins-tag ta">值得关注</div>
+      <h5>昆仑万维：亏损中的现金流韧性</h5>
+      <p>2024年净亏损-15.9亿元，但经营现金流仍为正（8.9亿元），说明Opera等海外平台业务仍在持续造血，AI业务的巨额费用主要体现为资本化研发支出和人员成本，并非全部直接消耗现金。这为其AI转型争取了宝贵的时间窗口。</p>
+      <div class="conclusion"><strong>→</strong>账面巨亏但现金流为正，说明核心业务仍有造血能力。需关注AI研发资本化比例及海外平台现金流的可持续性。</div>
+    </div>
+    <div class="ins-box">
+      <div class="ins-tag to">收现效率分化</div>
+      <h5>现金流占营收比：效率差距巨大</h5>
+      <p>巨人网络以54%的收现率（经营现金流/营收）位居第一，体现极强的议价能力与轻资产运营优势。恺英网络34.2%、神州泰岳25.9%紧随其后。而冰川网络收现率仅6.6%，买量驱动的商业模式导致大量现金被广告投放前置消耗。</p>
+      <div class="conclusion"><strong>→</strong>收现率是区分"高质量增长"与"高消耗增长"的关键指标。买量型公司天然面临现金周转压力，需关注应收账款周转天数变化。</div>
+    </div>
+  </div>
+
+  <div class="chart-box solo"><h4>现金流完整数据表</h4><div class="csub">按经营活动现金流净额由高到低排序</div>
+    <div class="tbl-preview" id="wrap-cfo"><div class="table-wrap"><table id="t-cfo"></table></div></div>
+    <div class="tbl-toggle" onclick="var w=document.getElementById('wrap-cfo');w.classList.toggle('open');this.classList.toggle('open');this.querySelector('.tgl-label').textContent=w.classList.contains('open')?'收起数据表':'展开全部 ▼'"><span class="tgl-icon">▼</span><span class="tgl-label">展开全部 ▼</span></div>
+  </div>
+</section>
+
+<!-- ══ GAME ══ -->
+<section class="section" id="sec-game">
+  <div class="sec-header">
+    <div class="sec-eyebrow">07 · Game Revenue</div>
+    <h2 class="sec-title">游戏业务专项分析</h2>
+    <p class="sec-summary">世纪华通（208.8亿）、三七互娱（172.9亿）构成绝对第一梯队。游戏业务占总营收超90%的纯游戏标的（恺英、冰川、游族、巨人）业绩弹性最大、风险最集中。游戏收入的增减直接反映产品生命周期健康程度，增速分化幅度超过营收整体，表明各公司内容储备差异正在加速显现。</p>
+  </div>
+  <div class="chart-row c2">
+    <div class="chart-box"><h4>2024年游戏业务收入 TOP12（亿元）</h4><div class="csub">深浅表示收入规模大小</div><canvas id="c-game-top"></canvas></div>
+    <div class="chart-box"><h4>游戏业务占总营收比重（2024年，%）</h4><div class="csub">深色=纯游戏标的，浅色=多元化公司</div><canvas id="c-game-ratio"></canvas></div>
+  </div>
+  <div class="chart-row c2">
+    <div class="chart-box"><h4>游戏业务：2023 VS 2024对比（亿元）</h4><div class="csub">深色=2024年，浅色=2023年基数</div><canvas id="c-game-cmp"></canvas></div>
+    <div class="chart-box"><h4>2024年游戏收入增长率（%）</h4><div class="csub">增速越高颜色越深</div><canvas id="c-game-grwth"></canvas></div>
+  </div>
+  <div class="ins-row">
+    <div class="ins-box">
+      <div class="ins-tag tp">出海标杆</div>
+      <h5>世纪华通：A股最大出海受益者</h5>
+      <p>2024年游戏业务收入208.8亿元（+86.6%），以绝对优势位居A股第一。天游SLG系列在中东、东南亚爆发式放量，已建立从研发、本地化到买量的完整能力链条。</p>
+      <div class="conclusion"><strong>→</strong>出海稳定性强于国内，但中东市场高度集中带来地缘风险敞口，需持续关注地区政策动向。</div>
+    </div>
+    <div class="ins-box">
+      <div class="ins-tag ta">防御型标的</div>
+      <h5>巨人网络与吉比特：稳定现金奶牛</h5>
+      <p>巨人网络2024年游戏收入29.2亿元，基本持平，但净利润14.3亿元（+31.3%），运营效率改善明显。吉比特净利润率维持25.6%高水位，靠产品质量而非买量驱动，分红慷慨。</p>
+      <div class="conclusion"><strong>→</strong>两者依靠产品力而非买量规模驱动盈利，在买量成本趋势性上涨的行业背景下，运营效率优势将进一步凸显。</div>
+    </div>
+  </div>
+
+  <!-- TIERED COMPARISON -->
+  <div class="chart-box solo" style="margin-top:28px;">
+    <h4>游戏营收梯队划分（2024年）</h4>
+    <div class="csub">头部 ≥ 100亿 · 中部 10~100亿 · 尾部 < 10亿 · 30家有游戏收入的公司（不含10家无游戏业务公司）</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin:16px 0;">
+      <div style="background:var(--bg3);padding:20px;text-align:center;">
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--red);letter-spacing:1px;margin-bottom:4px;">HEAD TIER · ≥100亿</div>
+        <div style="font-size:28px;font-weight:700;color:var(--text);" id="tier-head-count">—</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:2px;">家公司</div>
+      </div>
+      <div style="background:var(--bg3);padding:20px;text-align:center;">
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:1px;margin-bottom:4px;">MID TIER · 10~100亿</div>
+        <div style="font-size:28px;font-weight:700;color:var(--text);" id="tier-mid-count">—</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:2px;">家公司</div>
+      </div>
+      <div style="background:var(--bg3);padding:20px;text-align:center;">
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text3);letter-spacing:1px;margin-bottom:4px;">TAIL TIER · <10亿</div>
+        <div style="font-size:28px;font-weight:700;color:var(--text);" id="tier-tail-count">—</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:2px;">家公司</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-row c2">
+    <div class="chart-box"><h4>头部 / 中部 / 尾部：游戏营收占比</h4><div class="csub">各梯队游戏收入合计占比 · 2024年</div><canvas id="c-tier-pie"></canvas></div>
+    <div class="chart-box"><h4>三大梯队：营收规模与增速</h4><div class="csub">柱=游戏收入合计（亿元） · 数据标签=加权增速</div><canvas id="c-tier-bar"></canvas></div>
+  </div>
+
+
+  <div class="ins-row">
+    <div class="ins-box">
+      <div class="ins-tag tn">马太效应</div>
+      <h5>头部梯队占据绝对主导，增长资源加速集中</h5>
+      <p id="ins-top2-text">世纪华通与三七互娱2024年游戏收入合计占全部30家公司游戏总收入的比重，较2023年进一步提升。两家公司凭借出海能力、买量规模和产品管线深度拉开与其他公司的差距，形成事实上的双寡头格局。增长资源正加速向头部聚集——头部梯队的加权游戏增速远超中部和尾部。</p>
+      <div class="conclusion"><strong>→</strong>头部公司在买量成本、出海本地化、AI研发投入上的规模效应持续强化，中小公司在资源竞争中的劣势将持续扩大。</div>
+    </div>
+    <div class="ins-box">
+      <div class="ins-tag to">尾部生存</div>
+      <h5>尾部公司面临并购或退出的战略抉择</h5>
+      <p>尾部梯队公司游戏收入普遍低于10亿元，缺乏规模效应保护，盈利结构脆弱且波动性大。部分公司游戏收入持续萎缩（大晟文化、天舟文化跌幅超25%），主业边缘化趋势明显。在国内存量博弈加剧、买量成本上涨的背景下，这些公司缺乏独立突围的资源和时间窗口。</p>
+      <div class="conclusion"><strong>→</strong>尾部公司需尽快在差异化定位或并购整合中做出选择，单纯维持现有产品线运营的空间正在快速收窄。</div>
+    </div>
+  </div>
+</section>
+<section class="section" id="sec-deep">
+  <div class="sec-header">
+    <div class="sec-eyebrow">08 · Deep Dive</div>
+    <h2 class="sec-title">重点公司深度解析</h2>
+    <p class="sec-summary">精选4家最具代表性的公司进行深度剖析：出海爆发黑马、利润规模最大、AI激进转型者与盈利质量标杆。每家公司均含<strong style="color:var(--text)">核心驱动力、财务健康度、竞争壁垒、主要风险</strong>四维拆解，并附综合评价。</p>
+  </div>
+
+  <!-- 世纪华通 -->
+  <div class="dc">
+    <div class="dc-head">
+      <div class="dc-head-left">
+        <div class="dc-code">002602.SZ</div>
+        <div class="dc-name">世纪华通</div>
+        <div class="dc-type tn">出海爆发型</div>
+      </div>
+      <div class="dc-metrics">
+        <div class="dc-metric"><div class="mv mup">226.2亿</div><div class="ml">2024年营收</div></div>
+        <div class="dc-metric"><div class="mv mup">+70.3%</div><div class="ml">营收增速</div></div>
+        <div class="dc-metric"><div class="mv mup">12.1亿</div><div class="ml">净利润</div></div>
+        <div class="dc-metric"><div class="mv mup">+131%</div><div class="ml">净利润增速</div></div>
+        <div class="dc-metric"><div class="mv">790亿</div><div class="ml">最新市值</div></div>
+      </div>
+    </div>
+    <div class="dc-body">
+      <div class="dc-col">
+        <h6>核心驱动力</h6>
+        <p>旗下天游科技是核心引擎。天游SLG系列以中东市场为重心，2024年实现流水大规模放量，海外收入占比已超70%。公司建立了完整的"研发—本地化—精准买量"出海能力链。AI工具已应用于剧情生成与美术批量制作，助力研发效率提升，形成"出海+AI"双轮驱动格局。</p>
+      </div>
+      <div class="dc-col">
+        <h6>财务健康度</h6>
+        <p>2024年经营活动现金净流入50.5亿元，远超净利润12.1亿元，说明收入质量极高，无大量递延收入水分。销售费用77.4亿元（占收入34.2%），属SLG出海赛道合理区间。净利率5.4%偏低但持续改善。2025年Q1净利润13.5亿元，已超2024全年净利润的111%，印证高速增长态势延续。</p>
+      </div>
+      <div class="dc-col">
+        <h6>竞争壁垒</h6>
+        <p>已建成中东市场最强SLG本地化运营团队，具备语言、文化、投放的复合能力；天游产品在中东头部平台持续占据高榜单资源，用户基盘稳固；平台型打法通过投资/孵化方式拓展新产品线，降低单一IP依赖风险。</p>
+      </div>
+      <div class="dc-col">
+        <h6>主要风险</h6>
+        <p>①中东市场高度集中，地缘政治或监管变化影响大；②SLG赛道竞争白热化，Supercell、Scopely等国际大厂持续发力；③净利率偏低，若买量ROI下降，盈利弹性将快速收窄；④高增速一旦出现边际放缓，市场预期调整幅度可能较大。</p>
+      </div>
+    </div>
+    <div class="dc-verdict">
+      <div class="dv-icon">📋</div>
+      <div class="dv-text"><strong>综合评价：</strong>出海能力最强，业绩真实性高，现金流充沛。核心关注点在于中东市场集中度风险与净利率的持续改善空间，以及2025年下半年出海增速能否维持高景气。需持续跟踪天游新产品管线及海外市场多元化进展。</div>
+    </div>
+  </div>
+
+  <!-- 三七互娱 -->
+  <div class="dc">
+    <div class="dc-head">
+      <div class="dc-head-left">
+        <div class="dc-code">002555.SZ</div>
+        <div class="dc-name">三七互娱</div>
+        <div class="dc-type tp">稳健成长型</div>
+      </div>
+      <div class="dc-metrics">
+        <div class="dc-metric"><div class="mv">174.4亿</div><div class="ml">2024年营收</div></div>
+        <div class="dc-metric"><div class="mv mup">+5.4%</div><div class="ml">营收增速</div></div>
+        <div class="dc-metric"><div class="mv mup">26.7亿</div><div class="ml">净利润 A股#1</div></div>
+        <div class="dc-metric"><div class="mv">15.3%</div><div class="ml">净利率</div></div>
+        <div class="dc-metric"><div class="mv">365亿</div><div class="ml">最新市值</div></div>
+      </div>
+    </div>
+    <div class="dc-body">
+      <div class="dc-col">
+        <h6>商业模式剖析</h6>
+        <p>国内最大的"买量+精品化"游戏公司。全年销售费用高达97.1亿元（占收入55.7%），通过大规模买量在全球市场持续获客，再以强运营能力提升LTV。SLG出海产品《Puzzles & Survival》已在全球超60个市场运营，国内以MMORPG为主力，形成"国内现金流+海外增量"双保险结构。</p>
+      </div>
+      <div class="dc-col">
+        <h6>盈利质量分析</h6>
+        <p>2024年净利润26.7亿元，经营现金流约30亿元与净利润高度匹配，应收账款质量良好。连续多年保持10亿元以上分红，股息率约3%，体现出较强的盈利稳定性与股东回报意愿。净利率15.3%处于行业中上水平，但销售费用率55.7%对净利率的长期压制是核心观察指标。</p>
+      </div>
+      <div class="dc-col">
+        <h6>竞争壁垒</h6>
+        <p>全球规模最大的游戏买量体系之一，历史投放数据量积累不可复制；《Puzzles & Survival》全球用户基盘庞大，产品LTV远超行业平均；多元化产品组合降低单一爆款依赖；海外本地化团队成熟，覆盖20+语言市场。</p>
+      </div>
+      <div class="dc-col">
+        <h6>主要风险</h6>
+        <p>①买量成本持续攀升（Meta、Google广告价格年涨10%~15%），ROI持续收窄时净利率将承压；②重度依赖老产品流水，2024年无现象级新品；③国内市场增量空间有限，高买量策略在市场饱和时边际效用递减。</p>
+      </div>
+    </div>
+    <div class="dc-verdict">
+      <div class="dv-icon">📋</div>
+      <div class="dv-text"><strong>综合评价：</strong>A股游戏板块利润规模最大的标的，现金流健康，分红记录稳定。商业模式的核心矛盾是买量成本与LTV的长期动态平衡——买量规模扩张支撑增长，但广告费率趋势性上升将持续压缩利润空间。需重点跟踪新品储备能否有效补充老产品的流水衰减。</div>
+    </div>
+  </div>
+
+  <!-- 昆仑万维 -->
+  <div class="dc">
+    <div class="dc-head">
+      <div class="dc-head-left">
+        <div class="dc-code">300418.SZ</div>
+        <div class="dc-name">昆仑万维</div>
+        <div class="dc-type to">AI转型博弈型</div>
+      </div>
+      <div class="dc-metrics">
+        <div class="dc-metric"><div class="mv">56.6亿</div><div class="ml">2024年营收</div></div>
+        <div class="dc-metric"><div class="mv mup">+15.2%</div><div class="ml">营收增速</div></div>
+        <div class="dc-metric"><div class="mv mdn">-15.9亿</div><div class="ml">净利润</div></div>
+        <div class="dc-metric"><div class="mv mdn">由盈转亏</div><div class="ml">净利润同比</div></div>
+        <div class="dc-metric"><div class="mv">397亿</div><div class="ml">最新市值</div></div>
+      </div>
+    </div>
+    <div class="dc-body">
+      <div class="dc-col">
+        <h6>转型战略解读</h6>
+        <p>正在进行一场高风险高潜力的"游戏→AI平台"转型。押注自研大模型"天工"，AI能力嵌入游戏制作（AI NPC、剧情生成）与内容平台（星野AI陪伴）。2024年研发费用23亿元（+42%），销售费用23亿元，两项合计占收入81%，大幅侵蚀利润。游戏主业收入萎缩至仅4.4亿。</p>
+      </div>
+      <div class="dc-col">
+        <h6>AI业务进展评估</h6>
+        <p>星野AI陪伴平台MAU已突破1500万，但ARPU较低，商业化路径不清晰。天工大模型在文本创作领域有一定用户基础，但与主流大模型仍存明显差距。2025年Q1营收17.6亿元（+46%），AI收入开始贡献增量，但净亏损-7.7亿仍高企，亏损收窄节奏慢于市场预期。</p>
+      </div>
+      <div class="dc-col">
+        <h6>竞争壁垒</h6>
+        <p>星野AI陪伴平台在情感陪伴细分赛道有差异化机会；游戏业务的海外平台（Opera News等）提供持续现金流支撑研发投入；"AI+游戏"融合方向若SLG游戏中AI NPC系统落地顺利，有望形成产品差异化优势。</p>
+      </div>
+      <div class="dc-col">
+        <h6>主要风险</h6>
+        <p>①AI赛道竞争极为激烈，资本消耗大且盈利时间表高度不确定；②当前亏损幅度大，若AI变现迟缓，将持续消耗账面现金；③游戏主业已边缘化，一旦海外平台遭遇限制，现金流支撑将快速削弱；④市场预期分歧大，股价高度波动。</p>
+      </div>
+    </div>
+    <div class="dc-verdict">
+      <div class="dv-icon">📋</div>
+      <div class="dv-text"><strong>综合评价：</strong>战略转型方向清晰，但当前处于高研发投入、主业萎缩的阵痛期，财务压力真实。AI业务商业化能否形成正向现金流是判断转型成败的核心指标，需重点跟踪星野平台ARPU变化、天工大模型在B端的落地进展，以及游戏主业收缩后的现金流可持续性。</div>
+    </div>
+  </div>
+
+  <!-- 恺英网络 -->
+  <div class="dc">
+    <div class="dc-head">
+      <div class="dc-head-left">
+        <div class="dc-code">002517.SZ</div>
+        <div class="dc-name">恺英网络</div>
+        <div class="dc-type ta">高利润精品型</div>
+      </div>
+      <div class="dc-metrics">
+        <div class="dc-metric"><div class="mv mup">51.2亿</div><div class="ml">2024年营收</div></div>
+        <div class="dc-metric"><div class="mv mup">+19.2%</div><div class="ml">营收增速</div></div>
+        <div class="dc-metric"><div class="mv mup">16.3亿</div><div class="ml">净利润</div></div>
+        <div class="dc-metric"><div class="mv mup">31.8%</div><div class="ml">净利率（行业前列）</div></div>
+        <div class="dc-metric"><div class="mv">360亿</div><div class="ml">最新市值</div></div>
+      </div>
+    </div>
+    <div class="dc-body">
+      <div class="dc-col">
+        <h6>商业模式与产品矩阵</h6>
+        <p>以MMORPG为绝对核心，拳头产品《热血传奇》系列经历20余年积淀，在30-50岁男性用户中具有极强品牌黏性和情感价值。游戏收入占总营收100%，模式高度聚焦。近年积极出海，《Legend of Ymir》等产品在韩国、东南亚表现亮眼，海外收入占比稳步提升至约30%。</p>
+      </div>
+      <div class="dc-col">
+        <h6>财务优势深析</h6>
+        <p>2024年净利率31.8%，销售费用率33.9%（行业平均约45%），管理费用率3.9%，充分体现精细化运营能力。经营活动现金净流入17.5亿元，与净利润高度匹配，账期健康。2025年Q1净利润5.2亿元（+21.5%），继续验证基本面韧性，盈利趋势可见度高。</p>
+      </div>
+      <div class="dc-col">
+        <h6>竞争壁垒</h6>
+        <p>《热血传奇》IP具有不可复制的情感护城河，用户付费意愿极强；MMORPG赛道相对封闭，新进入者难以快速撼动老牌IP；出海积累中韩本地化团队，差异化竞争优势逐渐建立；低费用率体现极强的运营效率，形成成本端竞争优势。</p>
+      </div>
+      <div class="dc-col">
+        <h6>主要风险</h6>
+        <p>①核心用户老龄化，年轻用户获取成本不断攀升；②MMORPG赛道整体处于衰退期，长期增长天花板清晰；③过度依赖单一IP，若《传奇》系列流水大幅下滑缺乏有效替代；④出海新品尚未验证多产品线复制能力。</p>
+      </div>
+    </div>
+    <div class="dc-verdict">
+      <div class="dv-icon">📋</div>
+      <div class="dv-text"><strong>综合评价：</strong>盈利质量在A股游戏板块中属于第一梯队，低费用率与高净利率的组合体现出扎实的精细化运营能力。核心观察点是《传奇》系列IP的生命周期管理，以及出海新品能否形成第二条收入曲线，逐步降低对单一IP的依赖。</div>
+    </div>
+  </div>
+
+
+</section>
+
+<div class="footer">数据来源：东方财富Choice数据 · 各公司公告及财报 · 内部参考资料 · 2025年3月</div>
+
+<script>
+const cos=[
+  {c:'300051',n:'琏升科技',mc24:41.36,mc25:25.29,r23:2.26,r24:5.01,p23:-0.4,p24:-1.1,rd24:0.31,sale24:0.32,mchg:-39.9,g23:0.14,g24:null,q24:0.62,q25:1.0,cfo24:-0.77},
+  {c:'002425',n:'凯撒文化',mc24:42.76,mc25:29.47,r23:4.31,r24:4.54,p23:-7.95,p24:-5.28,rd24:0.7,sale24:0.13,mchg:-31.1,g23:4.17,g24:4.2,q24:1.49,q25:1.79,cfo24:-0.26},
+  {c:'002517',n:'恺英网络',mc24:240.44,mc25:359.99,r23:42.95,r24:51.18,p23:14.62,p24:16.28,rd24:5.98,sale24:17.35,mchg:50.9,g23:42.95,g24:51.18,q24:13.08,q25:13.53,cfo24:17.06},
+  {c:'600633',n:'浙数文化',mc24:139.99,mc25:160.54,r23:30.78,r24:30.97,p23:6.63,p24:5.12,rd24:3.31,sale24:4.31,mchg:14.5,g23:13.17,g24:13.4,q24:6.78,q25:7.06,cfo24:8.4},
+  {c:'300418',n:'昆仑万维',mc24:454.41,mc25:397.45,r23:49.15,r24:56.62,p23:12.58,p24:-15.95,rd24:15.43,sale24:23.04,mchg:-15.3,g23:5.34,g24:4.44,q24:12.08,q25:17.64,cfo24:8.85},
+  {c:'300113',n:'顺网科技',mc24:97.2,mc25:119.9,r23:14.33,r24:18.4,p23:1.7,p24:2.52,rd24:1.68,sale24:1.1,mchg:25.3,g23:3.95,g24:3.83,q24:4.12,q25:5.78,cfo24:2.94},
+  {c:'002605',n:'姚记科技',mc24:91.57,mc25:108.29,r23:43.07,r24:32.71,p23:5.62,p24:5.39,rd24:1.87,sale24:2.63,mchg:17.1,g23:12.26,g24:10.15,q24:9.82,q25:7.79,cfo24:4.5},
+  {c:'300533',n:'冰川网络',mc24:64.03,mc25:63.59,r23:27.83,r24:27.88,p23:2.73,p24:-2.47,rd24:4.44,sale24:23.02,mchg:-2.1,g23:27.73,g24:27.62,q24:5.6,q25:6.54,cfo24:2.74},
+  {c:'002174',n:'游族网络',mc24:104.96,mc25:108.99,r23:16.25,r24:14.34,p23:0.91,p24:-3.86,rd24:1.78,sale24:1.32,mchg:3.8,g23:16.09,g24:13.97,q24:3.35,q25:3.59,cfo24:-2.3},
+  {c:'603444',n:'吉比特',mc24:176.59,mc25:204.21,r23:41.85,r24:36.96,p23:11.25,p24:9.45,rd24:7.58,sale24:9.8,mchg:15.6,g23:41.25,g24:36.49,q24:9.27,q25:11.36,cfo24:11.86},
+  {c:'300494',n:'盛天网络',mc24:77.43,mc25:60.73,r23:13.29,r24:11.36,p23:1.69,p24:-2.61,rd24:0.71,sale24:0.57,mchg:-21.7,g23:1.7,g24:1.5,q24:2.54,q25:3.15,cfo24:2.7},
+  {c:'002555',n:'三七互娱',mc24:417.18,mc25:365.02,r23:165.47,r24:174.41,p23:26.59,p24:26.73,rd24:6.46,sale24:97.12,mchg:-12.3,g23:165.47,g24:172.93,q24:47.5,q25:42.43,cfo24:31.47},
+  {c:'002602',n:'世纪华通',mc24:384.55,mc25:790.72,r23:132.85,r24:226.2,p23:5.24,p24:12.13,rd24:16.8,sale24:77.42,mchg:105.6,g23:111.89,g24:208.75,q24:42.62,q25:81.45,cfo24:31.02},
+  {c:'002624',n:'完美世界',mc24:229.69,mc25:292.94,r23:77.91,r24:55.7,p23:4.91,p24:-12.88,rd24:19.27,sale24:8.7,mchg:27.5,g23:66.69,g24:51.81,q24:13.29,q25:20.23,cfo24:7.62},
+  {c:'601928',n:'凤凰传媒',mc24:224.21,mc25:290.88,r23:136.45,r24:136.06,p23:29.52,p24:15.98,rd24:0.42,sale24:16.92,mchg:29.7,g23:null,g24:null,q24:33.44,q25:32.26,cfo24:26.03},
+  {c:'601360',n:'三六零',mc24:643.8,mc25:676.16,r23:90.55,r24:79.48,p23:-4.92,p24:-10.94,rd24:32.02,sale24:21.44,mchg:7.2,g23:null,g24:null,q24:17.19,q25:18.64,cfo24:9.24},
+  {c:'600715',n:'文投控股',mc24:49.15,mc25:91.75,r23:6.09,r24:3.97,p23:-16.47,p24:-9.12,rd24:0.48,sale24:0.03,mchg:-14.7,g23:1.7,g24:1.29,q24:1.36,q25:1.31,cfo24:1.11},
+  {c:'300846',n:'首都在线',mc24:66.71,mc25:89.19,r23:12.43,r24:13.97,p23:-3.4,p24:-3.03,rd24:0.66,sale24:0.64,mchg:24.4,g23:2.06,g24:2.21,q24:3.24,q25:3.06,cfo24:1.69},
+  {c:'000917',n:'电广传媒',mc24:77.68,mc25:102.06,r23:39.2,r24:39.02,p23:1.76,p24:0.96,rd24:1.1,sale24:3.25,mchg:31.4,g23:4.51,g24:4.53,q24:8.98,q25:9.22,cfo24:2.88},
+  {c:'600576',n:'祥源文旅',mc24:79.41,mc25:82.68,r23:7.22,r24:8.64,p23:1.51,p24:1.47,rd24:0.15,sale24:0.78,mchg:5.4,g23:null,g24:null,q24:1.37,q25:2.12,cfo24:2.69},
+  {c:'002261',n:'拓维信息',mc24:188.58,mc25:373.95,r23:31.54,r24:41.07,p23:0.45,p24:-1.0,rd24:1.89,sale24:1.23,mchg:97.9,g23:null,g24:null,q24:8.13,q25:6.23,cfo24:-11.7},
+  {c:'600892',n:'*ST大晟',mc24:34.02,mc25:18.13,r23:2.27,r24:1.67,p23:-0.19,p24:-0.64,rd24:0.53,sale24:0.83,mchg:-46.7,g23:2.07,g24:1.54,q24:0.41,q25:0.56,cfo24:-0.56},
+  {c:'300467',n:'迅游科技',mc24:35.32,mc25:37.06,r23:3.71,r24:2.97,p23:0.29,p24:0.21,rd24:0.59,sale24:0.58,mchg:4.9,g23:null,g24:null,q24:0.79,q25:0.74,cfo24:0.54},
+  {c:'002148',n:'北纬科技',mc24:33.76,mc25:37.23,r23:2.65,r24:2.82,p23:0.23,p24:0.26,rd24:0.23,sale24:0.37,mchg:10.3,g23:0.53,g24:0.37,q24:0.65,q25:0.93,cfo24:0.43},
+  {c:'002168',n:'*ST惠程',mc24:35.91,mc25:25.01,r23:2.54,r24:1.97,p23:0.02,p24:-1.5,rd24:0.11,sale24:0.18,mchg:-30.3,g23:0.28,g24:null,q24:0.31,q25:0.61,cfo24:0.29},
+  {c:'600173',n:'卧龙地产',mc24:35.03,mc25:39.16,r23:47.56,r24:36.11,p23:1.64,p24:0.41,rd24:0,sale24:0.59,mchg:11.8,g23:null,g24:null,q24:5.59,q25:11.05,cfo24:-2.94},
+  {c:'300299',n:'富春股份',mc24:39.88,mc25:48.32,r23:3.31,r24:2.88,p23:0.09,p24:-1.37,rd24:0.72,sale24:0.04,mchg:21.3,g23:1.77,g24:1.51,q24:0.51,q25:0.83,cfo24:0.23},
+  {c:'002919',n:'名臣健康',mc24:56.96,mc25:42.99,r23:16.38,r24:13.8,p23:0.7,p24:0.47,rd24:0.69,sale24:4.44,mchg:-37.1,g23:11.64,g24:9.73,q24:3.62,q25:3.61,cfo24:0.69},
+  {c:'603258',n:'电魂网络',mc24:56.25,mc25:54.92,r23:6.77,r24:5.5,p23:0.57,p24:0.31,rd24:1.3,sale24:0.91,mchg:-2.3,g23:6.45,g24:5.33,q24:1.37,q25:1.02,cfo24:2.17},
+  {c:'300148',n:'天舟文化',mc24:31.49,mc25:38.68,r23:4.48,r24:4.61,p23:-0.6,p24:0.33,rd24:0.09,sale24:0.49,mchg:22.8,g23:0.98,g24:0.68,q24:0.49,q25:0.75,cfo24:0.72},
+  {c:'300311',n:'任子行',mc24:41.16,mc25:43.18,r23:6.09,r24:4.72,p23:-1.24,p24:-0.4,rd24:1.51,sale24:0.73,mchg:4.9,g23:null,g24:null,q24:0.24,q25:0.51,cfo24:0.56},
+  {c:'300043',n:'星辉娱乐',mc24:46.16,mc25:54.99,r23:17.33,r24:13.6,p23:0.28,p24:-4.58,rd24:0.76,sale24:2.64,mchg:19.1,g23:4.94,g24:4.72,q24:3.02,q25:4.14,cfo24:2.12},
+  {c:'600880',n:'博瑞传播',mc24:54.78,mc25:52.7,r23:6.14,r24:5.79,p23:0.36,p24:0.19,rd24:0.47,sale24:0.41,mchg:-3.8,g23:1.14,g24:1.03,q24:1.03,q25:1.84,cfo24:-1.15},
+  {c:'300052',n:'ST中青宝',mc24:44.44,mc25:24.06,r23:2.59,r24:2.27,p23:-0.55,p24:-0.53,rd24:0.33,sale24:0.31,mchg:-45.8,g23:0.92,g24:0.51,q24:0.75,q25:0.49,cfo24:0.54},
+  {c:'002558',n:'巨人网络',mc24:219.85,mc25:409.97,r23:29.24,r24:29.23,p23:10.86,p24:14.25,rd24:6.91,sale24:10.05,mchg:90.2,g23:29.1,g24:29.19,q24:6.96,q25:7.24,cfo24:11.25},
+  {c:'600373',n:'中文传媒',mc24:178.6,mc25:140.62,r23:100.84,r24:93.04,p23:19.67,p24:7.44,rd24:2.19,sale24:7.76,mchg:-23.5,g23:null,g24:null,q24:21.61,q25:16.97,cfo24:19.56},
+  {c:'300459',n:'汤姆猫',mc24:173.68,mc25:183.88,r23:13.48,r24:11.43,p23:-8.65,p24:-8.59,rd24:1.93,sale24:3.28,mchg:5.9,g23:1.36,g24:1.39,q24:2.97,q25:2.47,cfo24:3.76},
+  {c:'300315',n:'掌趣科技',mc24:141.31,mc25:148.38,r23:9.82,r24:8.19,p23:1.87,p24:1.11,rd24:2.62,sale24:2.37,mchg:6.4,g23:9.78,g24:8.16,q24:2.56,q25:1.62,cfo24:0.54},
+  {c:'300002',n:'神州泰岳',mc24:173.56,mc25:210.58,r23:59.62,r24:64.52,p23:8.87,p24:14.28,rd24:3.33,sale24:10.07,mchg:21.2,g23:44.97,g24:46.62,q24:14.88,q25:13.23,cfo24:10.78},
+  {c:'300031',n:'宝通科技',mc24:76.48,mc25:96.35,r23:36.55,r24:33.02,p23:1.06,p24:2.1,rd24:1.41,sale24:4.63,mchg:24.1,g23:16.25,g24:14.36,q24:8.39,q25:7.59,cfo24:4.31},
+];
+
+// Chart defaults
+Chart.defaults.font.family="'DM Mono',monospace";
+Chart.defaults.color='#3a3530';
+
+// Monochromatic red palette: shade by value magnitude
+function shade(vals,alpha_min=0.15,alpha_max=0.82){
+  const mx=Math.max(...vals.map(v=>Math.abs(v)||0));
+  return vals.map(v=>{
+    const t=mx>0?Math.abs(v)/mx:0;
+    const a=(alpha_min+t*(alpha_max-alpha_min)).toFixed(2);
+    return `rgba(200,48,42,${a})`;
+  });
+}
+function shadeFixed(n,alpha_min=0.15,alpha_max=0.82){
+  return Array.from({length:n},(_,i)=>{
+    const t=n>1?(n-1-i)/(n-1):1;
+    const a=(alpha_min+t*(alpha_max-alpha_min)).toFixed(2);
+    return `rgba(200,48,42,${a})`;
+  });
+}
+
+const GRID={color:'rgba(221,216,206,0.8)',border:{color:'rgba(221,216,206,0.8)'}};
+const TICK={color:'#3a3530',font:{size:11,family:"'DM Mono',monospace"}};
+const BASE={responsive:true,maintainAspectRatio:true,
+  plugins:{legend:{labels:{color:'#3a3530',font:{size:11},boxWidth:10,padding:12}},
+    tooltip:{backgroundColor:'#1a1714',titleColor:'#f7f5f0',bodyColor:'#9a948c',borderColor:'#ddd8ce',borderWidth:1,padding:10,cornerRadius:4}},
+  scales:{x:{ticks:{...TICK,maxRotation:38},grid:GRID,border:GRID.border},
+          y:{ticks:{...TICK},grid:GRID,border:GRID.border}}};
+
+function mk(id,type,labels,datasets,extra={}){
+  const el=document.getElementById(id);if(!el)return;
+  const opts=JSON.parse(JSON.stringify(BASE));
+  if(type==='pie'||type==='doughnut'){delete opts.scales;}
+  Object.assign(opts,extra);
+  return new Chart(el,{type,data:{labels,datasets},options:opts});
+}
+
+// INDEX
+mk('c-index','line',
+  ['2024-01','2024-02','2024-03','2024-04','2024-05','2024-06','2024-07','2024-08','2024-09','2024-10','2024-11','2024-12','2025-01','2025-02','2025-03'],
+  [
+    {label:'A股游戏指数',data:[0,-8,-3,5,-5,-10,-13,-8,-3,22,30,24,20,26,34],
+     borderColor:'rgba(200,48,42,0.85)',backgroundColor:'rgba(200,48,42,0.05)',
+     fill:true,tension:0.4,pointRadius:3,pointBackgroundColor:'rgba(200,48,42,0.85)',borderWidth:2},
+    {label:'沪深300',data:[0,2,5,4,2,-1,0,4,8,28,24,18,15,17,22],
+     borderColor:'rgba(154,148,140,0.6)',backgroundColor:'rgba(154,148,140,0.03)',
+     fill:true,tension:0.4,pointRadius:3,pointBackgroundColor:'rgba(154,148,140,0.6)',borderWidth:1.5,borderDash:[4,3]}
+  ],
+  {scales:{x:{ticks:{color:'#3a3530',font:{size:11}},grid:GRID,border:GRID.border},
+           y:{ticks:{color:'#3a3530',font:{size:11},callback:v=>v+'%'},grid:GRID,border:GRID.border}}});
+
+// OVERVIEW
+const rt=[...cos].sort((a,b)=>b.r24-a.r24).slice(0,15);
+mk('c-rev-top','bar',rt.map(c=>c.n),[{label:'营收（亿元）',data:rt.map(c=>c.r24),backgroundColor:shadeFixed(15),borderRadius:3,borderSkipped:false}]);
+
+const pt=[...cos].filter(c=>c.p24>0).sort((a,b)=>b.p24-a.p24).slice(0,10);
+mk('c-prof-top','bar',pt.map(c=>c.n),[{label:'净利润（亿元）',data:pt.map(c=>c.p24),backgroundColor:shadeFixed(10),borderRadius:3,borderSkipped:false}]);
+
+const bc=[0,0,0,0,0,0,0];
+cos.forEach(c=>{const g=c.r23>0?(c.r24-c.r23)/c.r23*100:0;if(g<-30)bc[0]++;else if(g<-10)bc[1]++;else if(g<0)bc[2]++;else if(g<10)bc[3]++;else if(g<30)bc[4]++;else if(g<50)bc[5]++;else bc[6]++;});
+mk('c-rev-dist','bar',['<-30%','-30~-10%','-10~0%','0~10%','10~30%','30~50%','>50%'],
+  [{label:'公司数量',data:bc,backgroundColor:shadeFixed(7,0.1,0.8).reverse(),borderRadius:3}]);
+
+mk('c-pnl-pie','doughnut',['盈利 22家','亏损 18家'],
+  [{data:[22,18],backgroundColor:['rgba(200,48,42,0.8)','rgba(221,216,206,0.9)'],borderColor:['#f7f5f0','#f7f5f0'],borderWidth:4}]);
+
+// REVENUE
+const t20=[...cos].sort((a,b)=>b.r24-a.r24).slice(0,15);
+mk('c-rev-cmp','bar',t20.map(c=>c.n),[
+  {label:'2023年',data:t20.map(c=>c.r23),backgroundColor:'rgba(221,216,206,0.9)',borderRadius:2,borderSkipped:false},
+  {label:'2024年',data:t20.map(c=>c.r24),backgroundColor:shade(t20.map(c=>c.r24)),borderRadius:2,borderSkipped:false}
+],{scales:{x:{ticks:{color:'#3a3530',maxRotation:45,font:{size:10}},grid:GRID,border:GRID.border},y:{ticks:{color:'#3a3530',font:{size:11}},grid:GRID,border:GRID.border}}});
+
+const gd=cos.map(c=>({n:c.n,g:c.r23>0?(c.r24-c.r23)/c.r23*100:0})).sort((a,b)=>b.g-a.g).slice(0,15);
+mk('c-rev-growth','bar',gd.map(c=>c.n),[{label:'增长率（%）',data:gd.map(c=>+c.g.toFixed(1)),backgroundColor:shade(gd.map(c=>c.g)),borderRadius:3,borderSkipped:false}]);
+
+const q1t=[...cos].sort((a,b)=>b.q25-a.q25).slice(0,15);
+mk('c-q1-cmp','bar',q1t.map(c=>c.n),[
+  {label:'2024Q1',data:q1t.map(c=>c.q24),backgroundColor:'rgba(221,216,206,0.9)',borderRadius:2},
+  {label:'2025Q1',data:q1t.map(c=>c.q25),backgroundColor:shade(q1t.map(c=>c.q25)),borderRadius:2}
+]);
+
+const q1g=[...cos].map(c=>({n:c.n,g:c.q24>0?(c.q25-c.q24)/c.q24*100:0})).sort((a,b)=>b.g-a.g);
+mk('c-q1-growth','bar',q1g.map(c=>c.n),[{label:'同比增速（%）',data:q1g.map(c=>+c.g.toFixed(1)),backgroundColor:q1g.map(c=>{const a=Math.max(0.08,Math.min(0.8,0.1+Math.abs(c.g)/200));return c.g>=0?`rgba(200,48,42,${a.toFixed(2)})`:'rgba(221,216,206,0.7)';
+}),borderRadius:2}]);
+
+// Revenue table
+const revTbl=document.getElementById('t-rev');
+if(revTbl){
+  const s=[...cos].sort((a,b)=>b.r24-a.r24);
+  revTbl.innerHTML=`<thead><tr><th>#</th><th>公司</th><th>代码</th><th>2023营收</th><th>2024营收</th><th>YoY</th><th>2024Q1</th><th>2025Q1</th><th>Q1同比</th></tr></thead><tbody>${s.map((c,i)=>{const y=c.r23>0?(c.r24-c.r23)/c.r23*100:0;const q=c.q24>0?(c.q25-c.q24)/c.q24*100:0;return`<tr><td class="mono" style="color:#9a948c">${i+1}</td><td><strong>${c.n}</strong></td><td class="mono" style="color:#9a948c">${c.c}</td><td class="mono">${c.r23.toFixed(2)}亿</td><td class="mono"><strong>${c.r24.toFixed(2)}亿</strong></td><td class="mono ${y>=0?'pos':'neg'}">${y>=0?'+':''}${y.toFixed(1)}%</td><td class="mono">${c.q24.toFixed(2)}亿</td><td class="mono">${c.q25.toFixed(2)}亿</td><td class="mono ${q>=0?'pos':'neg'}">${q>=0?'+':''}${q.toFixed(1)}%</td></tr>`;}).join('')}</tbody>`;
+}
+
+// PROFIT
+const ps=[...cos].sort((a,b)=>b.p24-a.p24);
+mk('c-net-bar','bar',ps.map(c=>c.n),[{label:'净利润（亿元）',data:ps.map(c=>c.p24),backgroundColor:ps.map(c=>{if(c.p24>=0){const a=(0.15+c.p24/30*0.67).toFixed(2);return`rgba(200,48,42,${Math.min(a,0.82)})`;}return'rgba(221,216,206,0.8)';}),borderRadius:3,borderSkipped:false}]);
+
+const pc=cos.filter(c=>Math.abs(c.p23)<35&&Math.abs(c.p24)<35).slice(0,18);
+mk('c-prof-chg','bar',pc.map(c=>c.n),[
+  {label:'2023年',data:pc.map(c=>c.p23),backgroundColor:'rgba(221,216,206,0.9)',borderRadius:2},
+  {label:'2024年',data:pc.map(c=>c.p24),backgroundColor:pc.map(c=>{if(c.p24>=0){const a=(0.2+c.p24/30*0.62).toFixed(2);return`rgba(200,48,42,${Math.min(a,0.82)})`;}return'rgba(221,216,206,0.7)';}),borderRadius:2}
+]);
+
+// Combo helper: dual-axis bar+line
+function mkCombo(id, labels, barData, lineData, barLabel, lineLabel) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  new Chart(el, {
+    data: {
+      labels,
+      datasets: [
+        {
+          type: 'bar',
+          label: barLabel,
+          data: barData,
+          backgroundColor: shade(barData),
+          borderRadius: 3,
+          yAxisID: 'y',
+          order: 2
+        },
+        {
+          type: 'line',
+          label: lineLabel,
+          data: lineData,
+          borderColor: 'rgba(200,48,42,0.9)',
+          backgroundColor: 'rgba(200,48,42,0.12)',
+          borderWidth: 2,
+          pointRadius: 3,
+          pointBackgroundColor: 'rgba(200,48,42,0.9)',
+          tension: 0.35,
+          fill: false,
+          yAxisID: 'y1',
+          order: 1
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: true,
+      plugins: {
+        legend: { display: true, labels: { color: '#3a3530', font: { size: 11 }, boxWidth: 10, padding: 14 } },
+        tooltip: { backgroundColor: '#1a1714', titleColor: '#f7f5f0', bodyColor: '#9a948c', borderColor: '#ddd8ce', borderWidth: 1, padding: 10, cornerRadius: 4 }
+      },
+      scales: {
+        x: { ticks: { color: '#3a3530', font: { size: 11 }, maxRotation: 40 }, grid: GRID, border: GRID.border },
+        y: { position: 'left', ticks: { color: '#3a3530', font: { size: 11 } }, grid: GRID, border: GRID.border },
+        y1: { position: 'right', ticks: { color: 'rgba(200,48,42,0.85)', font: { size: 11 }, callback: v => v + '%' }, grid: { display: false }, border: { display: false } }
+      }
+    }
+  });
+}
+
+// Left: sales expense combo — top 15 by amount
+const saleD = [...cos].filter(c => c.r24 > 0)
+  .map(c => ({ n: c.n, amt: c.sale24, rate: +(c.sale24 / c.r24 * 100).toFixed(1) }))
+  .sort((a, b) => b.amt - a.amt).slice(0, 15);
+mkCombo('c-sale-combo', saleD.map(c => c.n), saleD.map(c => c.amt), saleD.map(c => c.rate), '销售费用（亿元）', '销售费用率（%）');
+
+// Right: R&D expense combo — top 14 by amount
+const rdD = [...cos].filter(c => c.r24 > 0)
+  .map(c => ({ n: c.n, amt: c.rd24, rate: +(c.rd24 / c.r24 * 100).toFixed(1) }))
+  .sort((a, b) => b.amt - a.amt).slice(0, 14);
+mkCombo('c-rd-combo', rdD.map(c => c.n), rdD.map(c => c.amt), rdD.map(c => c.rate), '研发费用（亿元）', '研发费用率（%）');
+
+// Profit table
+const profTbl=document.getElementById('t-prof');
+if(profTbl){
+  const s=[...cos].sort((a,b)=>b.p24-a.p24);
+  profTbl.innerHTML=`<thead><tr><th>公司</th><th>2023净利润</th><th>2024净利润</th><th>变化</th><th>净利率</th><th>销售费率</th><th>研发费率</th></tr></thead><tbody>${s.map(c=>{const ch=c.p23!==0?(c.p24-c.p23)/Math.abs(c.p23)*100:0;const nm=c.r24>0?c.p24/c.r24*100:0;const sm=c.r24>0?c.sale24/c.r24*100:0;const rm=c.r24>0?c.rd24/c.r24*100:0;return`<tr><td><strong>${c.n}</strong></td><td class="mono ${c.p23>=0?'pos':'neg'}">${c.p23.toFixed(2)}亿</td><td class="mono ${c.p24>=0?'pos':'neg'}">${c.p24.toFixed(2)}亿</td><td class="mono ${ch>=0?'pos':'neg'}">${ch>=0?'+':''}${ch.toFixed(1)}%</td><td class="mono ${nm>=0?'pos':'neg'}">${nm.toFixed(1)}%</td><td class="mono">${sm.toFixed(1)}%</td><td class="mono">${rm.toFixed(1)}%</td></tr>`;}).join('')}</tbody>`;
+}
+
+// MARKET
+const ms=[...cos].sort((a,b)=>b.mc25-a.mc25).slice(0,15);
+mk('c-mkt-cap','bar',ms.map(c=>c.n),[{label:'最新市值（亿元）',data:ms.map(c=>c.mc25),backgroundColor:shade(ms.map(c=>c.mc25)),borderRadius:3}]);
+
+const mcA=[...cos].sort((a,b)=>b.mchg-a.mchg);
+mk('c-mkt-chg','bar',mcA.map(c=>c.n),[{label:'涨跌幅（%）',data:mcA.map(c=>c.mchg),backgroundColor:mcA.map(c=>{if(c.mchg>=0){const a=Math.min(0.8,0.1+c.mchg/120*0.7).toFixed(2);return`rgba(200,48,42,${a})`;}return'rgba(221,216,206,0.8)';}),borderRadius:2}]);
+
+const re=document.getElementById('rank-mkt');
+if(re){
+  const all=[...cos].sort((a,b)=>b.mchg-a.mchg);
+  const mx=Math.max(...all.map(c=>Math.abs(c.mchg)));
+  re.innerHTML=all.map((c,i)=>{
+    const nc=i===0?'g':i===1?'s':i===2?'b':'';
+    const w=Math.abs(c.mchg)/mx*100;
+    const alpha=c.mchg>=0?Math.min(0.8,0.15+c.mchg/mx*0.65).toFixed(2):0.3;
+    const cl=c.mchg>=0?'var(--red)':'var(--text3)';
+    const bg=c.mchg>=0?`rgba(200,48,42,${alpha})`:'rgba(221,216,206,0.8)';
+    return`<div class="rank-item"><div class="rnum ${nc}">${i+1}</div><div class="rinfo"><div class="rname">${c.n}</div><div class="rsub">${c.c} · ${c.mc25.toFixed(0)}亿</div></div><div class="rbar"><div class="rbar-fill" style="width:${w}%;background:${bg}"></div></div><div class="rval" style="color:${cl}">${c.mchg>=0?'+':''}${c.mchg.toFixed(1)}%</div></div>`;
+  }).join('');
+}
+
+// GAME
+const gt=[...cos].filter(c=>c.g24&&c.g24>0).sort((a,b)=>b.g24-a.g24).slice(0,12);
+mk('c-game-top','bar',gt.map(c=>c.n),[{label:'游戏收入（亿元）',data:gt.map(c=>c.g24),backgroundColor:shade(gt.map(c=>c.g24)),borderRadius:3}]);
+
+const gr=cos.filter(c=>c.g24&&c.g24>0).map(c=>({n:c.n,r:c.g24/c.r24*100})).sort((a,b)=>b.r-a.r).slice(0,15);
+mk('c-game-ratio','bar',gr.map(c=>c.n),[{label:'游戏占比（%）',data:gr.map(c=>+c.r.toFixed(1)),backgroundColor:shade(gr.map(c=>c.r)),borderRadius:3}]);
+
+const gc=cos.filter(c=>c.g23&&c.g24).sort((a,b)=>b.g24-a.g24).slice(0,12);
+mk('c-game-cmp','bar',gc.map(c=>c.n),[
+  {label:'2023年',data:gc.map(c=>c.g23),backgroundColor:'rgba(221,216,206,0.9)',borderRadius:2},
+  {label:'2024年',data:gc.map(c=>c.g24),backgroundColor:shade(gc.map(c=>c.g24)),borderRadius:2}
+]);
+
+const gg=cos.filter(c=>c.g23&&c.g24).map(c=>({n:c.n,g:(c.g24-c.g23)/c.g23*100})).sort((a,b)=>b.g-a.g);
+mk('c-game-grwth','bar',gg.map(c=>c.n),[{label:'增速（%）',data:gg.map(c=>+c.g.toFixed(1)),backgroundColor:gg.map(c=>{if(c.g>=0){const a=Math.min(0.8,0.1+c.g/100*0.7).toFixed(2);return`rgba(200,48,42,${a})`;}return'rgba(221,216,206,0.8)';}),borderRadius:2}]);
+
+// CASH FLOW
+const cfoSorted = [...cos].sort((a,b) => b.cfo24 - a.cfo24);
+mk('c-cfo-bar','bar', cfoSorted.map(c=>c.n), [{
+  label:'经营现金流净额（亿元）',
+  data: cfoSorted.map(c=>c.cfo24),
+  backgroundColor: cfoSorted.map(c => {
+    if(c.cfo24 >= 0){ const a = Math.min(0.82, 0.15 + c.cfo24/55*0.67).toFixed(2); return `rgba(200,48,42,${a})`; }
+    return 'rgba(221,216,206,0.8)';
+  }),
+  borderRadius:3, borderSkipped:false
+}]);
+
+// CFO vs Profit combo (custom - both axes absolute)
+const cfoVsP = [...cos].sort((a,b) => b.cfo24 - a.cfo24).slice(0,18);
+{
+  const el = document.getElementById('c-cfo-vs-profit');
+  if(el){
+    new Chart(el, {
+      data: {
+        labels: cfoVsP.map(c=>c.n),
+        datasets: [
+          { type:'bar', label:'经营现金流（亿元）', data:cfoVsP.map(c=>c.cfo24),
+            backgroundColor: cfoVsP.map(c => { if(c.cfo24>=0){const a=Math.min(0.82,0.15+c.cfo24/55*0.67).toFixed(2);return`rgba(200,48,42,${a})`;} return'rgba(221,216,206,0.8)'; }),
+            borderRadius:3, yAxisID:'y', order:2 },
+          { type:'line', label:'净利润（亿元）', data:cfoVsP.map(c=>c.p24),
+            borderColor:'rgba(138,96,16,0.85)', backgroundColor:'rgba(138,96,16,0.1)',
+            borderWidth:2, pointRadius:3, pointBackgroundColor:'rgba(138,96,16,0.85)',
+            tension:0.35, fill:false, yAxisID:'y', order:1 }
+        ]
+      },
+      options: {
+        responsive:true, maintainAspectRatio:true,
+        plugins:{ legend:{labels:{color:'#3a3530',font:{size:11},boxWidth:10,padding:14}},
+          tooltip:{backgroundColor:'#1a1714',titleColor:'#f7f5f0',bodyColor:'#9a948c',borderColor:'#ddd8ce',borderWidth:1,padding:10,cornerRadius:4} },
+        scales:{
+          x:{ticks:{color:'#3a3530',font:{size:11},maxRotation:40},grid:GRID,border:GRID.border},
+          y:{ticks:{color:'#3a3530',font:{size:11}},grid:GRID,border:GRID.border}
+        }
+      }
+    });
+  }
+}
+
+// CFO / Profit ratio (profitable companies only)
+const cfoRatio = cos.filter(c => c.p24 > 0 && c.cfo24 !== undefined)
+  .map(c => ({n:c.n, ratio: +(c.cfo24/c.p24).toFixed(2)}))
+  .sort((a,b) => b.ratio - a.ratio);
+mk('c-cfo-ratio','bar', cfoRatio.map(c=>c.n), [{
+  label:'现金流/净利润比率',
+  data: cfoRatio.map(c=>c.ratio),
+  backgroundColor: cfoRatio.map(c => {
+    if(c.ratio >= 1){ const a = Math.min(0.82, 0.15 + c.ratio/5*0.67).toFixed(2); return `rgba(200,48,42,${a})`; }
+    return 'rgba(221,216,206,0.8)';
+  }),
+  borderRadius:3
+}]);
+
+// CFO / Revenue ratio TOP15
+const cfoRevR = cos.filter(c => c.r24 > 0)
+  .map(c => ({n:c.n, ratio: +(c.cfo24/c.r24*100).toFixed(1)}))
+  .sort((a,b) => b.ratio - a.ratio).slice(0,15);
+mk('c-cfo-rev-ratio','bar', cfoRevR.map(c=>c.n), [{
+  label:'收现率（%）',
+  data: cfoRevR.map(c=>c.ratio),
+  backgroundColor: cfoRevR.map(c => {
+    if(c.ratio >= 0){ const a = Math.min(0.82, 0.08 + c.ratio/60*0.74).toFixed(2); return `rgba(200,48,42,${a})`; }
+    return 'rgba(221,216,206,0.8)';
+  }),
+  borderRadius:3
+}]);
+
+// CFO table
+const cfoTbl = document.getElementById('t-cfo');
+if(cfoTbl){
+  const s = [...cos].sort((a,b) => b.cfo24 - a.cfo24);
+  cfoTbl.innerHTML = `<thead><tr><th>#</th><th>公司</th><th>经营现金流</th><th>净利润</th><th>现金流/利润</th><th>收现率</th><th>判断</th></tr></thead><tbody>${s.map((c,i) => {
+    const ratio = c.p24 !== 0 ? (c.cfo24/c.p24) : 0;
+    const revR = c.r24 > 0 ? (c.cfo24/c.r24*100) : 0;
+    let judge = '—';
+    if(c.cfo24 > 0 && c.p24 > 0 && ratio >= 1) judge = '✅ 高质量';
+    else if(c.cfo24 > 0 && c.p24 > 0) judge = '⚠️ 可接受';
+    else if(c.cfo24 > 0 && c.p24 <= 0) judge = '🔄 主业造血';
+    else if(c.cfo24 <= 0 && c.p24 > 0) judge = '⚠️ 利润虚化';
+    else judge = '🔴 持续失血';
+    return `<tr><td class="mono" style="color:#9a948c">${i+1}</td><td><strong>${c.n}</strong></td><td class="mono ${c.cfo24>=0?'pos':'neg'}">${c.cfo24.toFixed(2)}亿</td><td class="mono ${c.p24>=0?'pos':'neg'}">${c.p24.toFixed(2)}亿</td><td class="mono">${c.p24!==0?(ratio>=0?'':'')+ratio.toFixed(2)+'x':'—'}</td><td class="mono">${revR.toFixed(1)}%</td><td style="font-size:11px">${judge}</td></tr>`;
+  }).join('')}</tbody>`;
+}
+
+// GAME TIER ANALYSIS (100亿 / 10亿 split)
+const gameCos = cos.filter(c => c.g24 !== null && c.g24 !== undefined);
+const tierHead = gameCos.filter(c => c.g24 >= 100).sort((a,b) => b.g24 - a.g24);
+const tierMid  = gameCos.filter(c => c.g24 >= 10 && c.g24 < 100).sort((a,b) => b.g24 - a.g24);
+const tierTail = gameCos.filter(c => c.g24 < 10).sort((a,b) => b.g24 - a.g24);
+
+// Update tier count displays
+const thc = document.getElementById('tier-head-count'); if(thc) thc.textContent = tierHead.length;
+const tmc = document.getElementById('tier-mid-count');  if(tmc) tmc.textContent = tierMid.length;
+const ttc = document.getElementById('tier-tail-count'); if(ttc) ttc.textContent = tierTail.length;
+
+// Tier sums and growth
+const headSum = tierHead.reduce((s,c) => s+(c.g24||0), 0);
+const midSum  = tierMid.reduce((s,c) => s+(c.g24||0), 0);
+const tailSum = tierTail.reduce((s,c) => s+(c.g24||0), 0);
+const allG24 = headSum + midSum + tailSum;
+function tierWGrowth(arr){ const w23=arr.filter(c=>c.g23&&c.g23>0); if(!w23.length)return 0; const s23=w23.reduce((s,c)=>s+c.g23,0); const s24=w23.reduce((s,c)=>s+(c.g24||0),0); return +((s24-s23)/s23*100).toFixed(1); }
+const hg=tierWGrowth(tierHead), mg=tierWGrowth(tierMid), tg=tierWGrowth(tierTail);
+
+// Tier pie chart
+mk('c-tier-pie','doughnut',
+  [`头部 ${headSum.toFixed(0)}亿 (${(headSum/allG24*100).toFixed(0)}%)`,
+   `中部 ${midSum.toFixed(0)}亿 (${(midSum/allG24*100).toFixed(0)}%)`,
+   `尾部 ${tailSum.toFixed(0)}亿 (${(tailSum/allG24*100).toFixed(0)}%)`],
+  [{data:[headSum, midSum, tailSum],
+    backgroundColor:['rgba(200,48,42,0.82)','rgba(200,48,42,0.4)','rgba(221,216,206,0.9)'],
+    borderColor:['#f7f5f0','#f7f5f0','#f7f5f0'], borderWidth:4}]);
+
+{
+  const el=document.getElementById('c-tier-bar');
+  if(el){
+    new Chart(el,{
+      type:'bar',
+      data:{
+        labels:[`头部 (${tierHead.length}家)`,`中部 (${tierMid.length}家)`,`尾部 (${tierTail.length}家)`],
+        datasets:[{
+          label:'游戏收入合计（亿元）',
+          data:[headSum, midSum, tailSum],
+          backgroundColor:['rgba(200,48,42,0.82)','rgba(200,48,42,0.45)','rgba(221,216,206,0.85)'],
+          borderRadius:4, barPercentage:0.5
+        }]
+      },
+      options:{
+        responsive:true, maintainAspectRatio:true,
+        plugins:{
+          legend:{display:false},
+          tooltip:BASE.plugins.tooltip,
+          // datalabels not available, use custom plugin
+        },
+        scales:{
+          x:{ticks:TICK,grid:GRID,border:GRID.border},
+          y:{ticks:TICK,grid:GRID,border:GRID.border}
+        }
+      },
+      plugins:[{
+        id:'growthLabel',
+        afterDatasetsDraw(chart){
+          const ctx=chart.ctx;
+          const ds=chart.data.datasets[0];
+          const meta=chart.getDatasetMeta(0);
+          const growths=[hg,mg,tg];
+          meta.data.forEach((bar,i)=>{
+            ctx.save();
+            ctx.font="bold 11px 'DM Mono',monospace";
+            ctx.fillStyle=growths[i]>=0?'#1a7a3a':'#c8302a';
+            ctx.textAlign='center';
+            ctx.fillText((growths[i]>=0?'+':'')+growths[i]+'% YoY', bar.x, bar.y-8);
+            ctx.restore();
+          });
+        }
+      }]
+    });
+  }
+}
+
+// Dynamic insight text
+const insEl = document.getElementById('ins-top2-text');
+if(insEl){
+  const headPct = (headSum/allG24*100).toFixed(1);
+  const midPct = (midSum/allG24*100).toFixed(1);
+  const tailPct = (tailSum/allG24*100).toFixed(1);
+  insEl.innerHTML = `头部2家公司（世纪华通208.8亿 + 三七互娱172.9亿）2024年游戏收入合计${headSum.toFixed(0)}亿元，占30家有游戏业务公司总收入的<strong style="color:var(--text)">${headPct}%</strong>；中部10家合计${midSum.toFixed(0)}亿元（${midPct}%）；尾部18家仅${tailSum.toFixed(0)}亿元（${tailPct}%）。头部梯队加权游戏增速${hg>=0?'+':''}${hg}%，远超中部（${mg>=0?'+':''}${mg}%）和尾部（${tg>=0?'+':''}${tg}%），增长资源正加速向头部聚集，马太效应持续强化。`;
+}
+
+// SCROLL NAV
+function goTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
+const secs=['sec-cover','sec-overview','sec-index','sec-market','sec-revenue','sec-profit','sec-cashflow','sec-game','sec-deep'];
+const dots=document.querySelectorAll('.scroll-item');
+function upNav(){
+  const mid=window.scrollY+window.innerHeight*0.38;
+  let a=0;
+  secs.forEach((id,i)=>{const el=document.getElementById(id);if(el&&el.offsetTop<=mid)a=i;});
+  dots.forEach((d,i)=>d.classList.toggle('active',i===a));
+}
+window.addEventListener('scroll',upNav,{passive:true});
+upNav();
+</script>
+</body>
+</html>
