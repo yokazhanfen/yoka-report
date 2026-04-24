@@ -212,19 +212,19 @@ mark.hl{background:var(--hl);color:var(--text);border-radius:2px;padding:0 1px}
   </div>
   <div class="header-meta">
     <div>版本 <strong>v1.9</strong> &nbsp;·&nbsp; 更新 <strong>2026-03-13</strong></div>
-    <div>共收录 <strong id="header-count">87</strong> 篇报告</div>
+    <div>共收录 <strong id="header-count">91</strong> 篇报告</div>
   </div>
 </header>
 <div class="layout">
 <aside class="sidebar">
   <nav class="sidebar-nav">
     <div class="nav-label">分类导航</div>
-    <div class="nav-item active" onclick="setCatFilter('all',this)"><div class="nav-dot" style="background:#c0392b"></div><span class="nav-text">全部报告</span><span class="nav-count" id="nav-all-count">87</span></div>
-    <div class="nav-item" onclick="setCatFilter('市场研究',this)"><div class="nav-dot" style="background:#a07830"></div><span class="nav-text">市场研究</span><span class="nav-count" id="nav-count-市场研究">44</span></div>
+    <div class="nav-item active" onclick="setCatFilter('all',this)"><div class="nav-dot" style="background:#c0392b"></div><span class="nav-text">全部报告</span><span class="nav-count" id="nav-all-count">91</span></div>
+    <div class="nav-item" onclick="setCatFilter('市场研究',this)"><div class="nav-dot" style="background:#a07830"></div><span class="nav-text">市场研究</span><span class="nav-count" id="nav-count-市场研究">46</span></div>
     <div class="nav-item" onclick="setCatFilter('产品分析',this)"><div class="nav-dot" style="background:#2e7d6a"></div><span class="nav-text">产品分析</span><span class="nav-count" id="nav-count-产品分析">11</span></div>
     <div class="nav-item" onclick="setCatFilter('AI与技术',this)"><div class="nav-dot" style="background:#2c5f8a"></div><span class="nav-text">AI 与技术</span><span class="nav-count" id="nav-count-AI与技术">9</span></div>
     <div class="nav-item" onclick="setCatFilter('出海战略',this)"><div class="nav-dot" style="background:#9a5020"></div><span class="nav-text">出海战略</span><span class="nav-count" id="nav-count-出海战略">11</span></div>
-    <div class="nav-item" onclick="setCatFilter('用户洞察',this)"><div class="nav-dot" style="background:#7a4080"></div><span class="nav-text">用户洞察</span><span class="nav-count" id="nav-count-用户洞察">11</span></div>
+    <div class="nav-item" onclick="setCatFilter('用户洞察',this)"><div class="nav-dot" style="background:#7a4080"></div><span class="nav-text">用户洞察</span><span class="nav-count" id="nav-count-用户洞察">13</span></div>
     <div class="nav-item" onclick="setCatFilter('企业研究',this)"><div class="nav-dot" style="background:#3a6b3a"></div><span class="nav-text">企业研究</span><span class="nav-count" id="nav-count-企业研究">1</span></div>
   </nav>
   <div class="sidebar-footer">战略发展部<br>内部使用 · 请勿外传</div>
@@ -233,7 +233,7 @@ mark.hl{background:var(--hl);color:var(--text);border-radius:2px;padding:0 1px}
   <div class="overview-bar">
     <div class="overview-card" style="--ov-color1:#c0392b;--ov-color2:#e74c3c;--ov-glow:rgba(192,57,43,.12)">
       <div class="ov-icon">📄</div>
-      <div class="ov-num" id="ov-reports">87</div>
+      <div class="ov-num" id="ov-reports">91</div>
       <div class="ov-label">收录报告</div>
       <div class="ov-sub">持续更新中</div>
     </div>
@@ -245,7 +245,7 @@ mark.hl{background:var(--hl);color:var(--text);border-radius:2px;padding:0 1px}
     </div>
     <div class="overview-card" style="--ov-color1:#2980b9;--ov-color2:#3498db;--ov-glow:rgba(41,128,185,.12)">
       <div class="ov-icon">🏢</div>
-      <div class="ov-num" id="ov-sources">59</div>
+      <div class="ov-num" id="ov-sources">63</div>
       <div class="ov-label">来源机构</div>
       <div class="ov-sub">券商 · 数据 · 平台</div>
     </div>
@@ -339,6 +339,10 @@ mark.hl{background:var(--hl);color:var(--text);border-radius:2px;padding:0 1px}
         <span class="tn-tag source" data-dim="source" data-val="Google">Google</span>
         <span class="tn-tag source" data-dim="source" data-val="GSMA">GSMA</span>
         <span class="tn-tag source" data-dim="source" data-val="LnData">LnData</span>
+        <span class="tn-tag source" data-dim="source" data-val="艺恩数据">艺恩数据</span>
+        <span class="tn-tag source" data-dim="source" data-val="袤则咨询">袤则咨询</span>
+        <span class="tn-tag source" data-dim="source" data-val="Adjust">Adjust</span>
+        <span class="tn-tag source" data-dim="source" data-val="腾讯营销洞察">腾讯营销洞察</span>
         <span class="tn-tag source" data-dim="source" data-val="nexxen">nexxen</span>
         <span class="tn-tag source" data-dim="source" data-val="Newzoo">Newzoo</span>
         <span class="tn-tag source" data-dim="source" data-val="Perforce">Perforce</span>
@@ -409,9 +413,21 @@ mark.hl{background:var(--hl);color:var(--text);border-radius:2px;padding:0 1px}
     <div class="category-header">
       <div class="cat-stripe" style="background:#a07830"></div>
       <div class="category-name">市场研究</div>
-      <div class="category-count">44 篇</div>
+      <div class="category-count">46 篇</div>
     </div>
     <div class="cards-grid">
+      <div class="report-card" data-date="2026-04-24" style="--card-accent:#a07830" data-category="市场研究" data-genre="短剧" data-region="中国" data-source="艺恩数据" data-topics="市场规模 AI技术 变现策略" data-keywords="AI漫剧 艺恩数据 抖音 757.72亿播放量 Z世代 IAA IAP 会员分账 短视频 长视频 小程序微短剧 投流 剧本创作 后期剪辑 生产周期 制作成本 2000元 400元 捷成股份 三六零 蓝色光标 AI创作平台 大模型 IP改编 分镜 腾讯火龙漫剧 字节红果漫剧 百度柚漫剧 内容同质化 爆款率 版权争议 卖课 内卷 2025 2026">
+        <div class="card-top"><div class="card-title">2026年AI漫剧市场发展趋势洞察报告</div><div class="card-meta"><div class="card-source">艺恩数据</div><div class="card-date">2026.04.24</div></div></div>
+        <div class="card-topics"><span class="topic-tag">短剧</span><span class="topic-tag">AI技术</span><span class="topic-tag">变现策略</span></div>
+        <div class="card-summary collapsed">2025年AI漫剧在抖音端累计播放量突破757.72亿，月播放量亿级增长，Z世代已建立稳定消费习惯，2026年进入快速生产时代。变现形成IAA（广告）、IAP（内购）、会员分账三种模式，短视频平台以广告为主，长视频倾向分账，小程序依赖精准投流。AI覆盖剧本创作到后期剪辑全流程，生产周期缩短1/3，制作成本从每分钟2000元降至约400元；捷成股份、三六零、蓝色光标等加速布局AI创作平台。腾讯（火龙漫剧）、字节（红果漫剧）、百度（柚漫剧）相继推出独立APP抢占战略入口。行业仍面临内容同质化、爆款率下滑、版权争议及"卖课"乱象等痛点。</div>
+        <div class="card-footer"><div class="card-tags"><span class="tag">AI漫剧</span><span class="tag">短视频变现</span><span class="tag">制作成本骤降</span><span class="tag">平台入口争夺</span><span class="tag">内容同质化</span></div><a href="https://docs.xiaoshanim.com/i/nodes/7gNKMlbrq3WXAA1ynOyI4Xv5p6Ad9nL1?utm_scene=person_space# 「报告」" target="_blank" class="read-btn">阅读全文 <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8L8 2M8 2H4M8 2V6"/></svg></a></div>
+      </div>
+      <div class="report-card" data-date="2026-04-24" style="--card-accent:#a07830" data-category="市场研究" data-genre="手游 小游戏" data-region="全球 中东 北非 日本 北美" data-source="Adjust" data-topics="市场规模 买量投放 用户留存" data-keywords="Adjust 游戏应用 会话量 +1% 中东北非 安装量+2% 会话量+7% 超休闲 29.1% 留存率 策略游戏 会话量+57% 老虎机 安装量+46% 付费自然安装比+61% 博彩+223% CPM +20% 4.34美元 北美 15.98美元 D1留存率27% 日本25% IAP 2025 2026">
+        <div class="card-top"><div class="card-title">2026年游戏应用洞察报告</div><div class="card-meta"><div class="card-source">Adjust</div><div class="card-date">2026.04.24</div></div></div>
+        <div class="card-topics"><span class="topic-tag">市场规模</span><span class="topic-tag">买量投放</span><span class="topic-tag">用户留存</span></div>
+        <div class="card-summary collapsed">2025年全球游戏应用会话量同比增长1%，中东和北非表现强劲（安装量+2%，会话量+7%）。品类方面，超休闲游戏仍是安装量大户（占比29.1%）且留存率持续提升；策略类游戏互动深度最高，会话量同比飙升57%；老虎机类安装量增幅领跑，达46%。买量压力加剧：全球付费/自然安装比激增61%，博彩类更飙升223%；全球平均CPM提升20%至4.34美元，北美高达15.98美元。留存方面，全平台D1均值为27%，日本以25%位居全球第一。超休闲游戏正融入轻度进度系统与IAP机制以提升用户ARPU。</div>
+        <div class="card-footer"><div class="card-tags"><span class="tag">超休闲留存</span><span class="tag">策略游戏爆发</span><span class="tag">CPM上涨</span><span class="tag">中东北非</span><span class="tag">买量依赖</span></div><a href="https://docs.xiaoshanim.com/i/nodes/7gNKMlbrq3WXAA1ynOyI4Xv5p6Ad9nL1?utm_scene=person_space# 「报告」" target="_blank" class="read-btn">阅读全文 <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8L8 2M8 2H4M8 2V6"/></svg></a></div>
+      </div>
       <div class="report-card" data-date="2026-04-10" style="--card-accent:#a07830" data-category="市场研究" data-genre="手游 PC主机" data-region="全球" data-source="Sensor Tower" data-topics="IP运营 市场规模 产品趋势" data-keywords="IP游戏 授权IP 手游 184亿美元 下载量 单次下载收入 +12% 长线运营 深度付费 王者荣耀 英雄联盟 宝可梦 腾讯 任天堂 Marvel Rivals 网易 2200万下载 Steam PlayStation Xbox 3.2亿 Baldur's Gate 3 1.2亿 买断制 Sensor Tower 2025 2026">
         <div class="card-top"><div class="card-title">2026年全球IP游戏市场洞察</div><div class="card-meta"><div class="card-source">Sensor Tower</div><div class="card-date">2026.04.10</div></div></div>
         <div class="card-topics"><span class="topic-tag">IP运营</span><span class="topic-tag">市场规模</span><span class="topic-tag">产品趋势</span></div>
@@ -896,9 +912,21 @@ mark.hl{background:var(--hl);color:var(--text);border-radius:2px;padding:0 1px}
     <div class="category-header">
       <div class="cat-stripe" style="background:#c0392b"></div>
       <div class="category-name">用户洞察</div>
-      <div class="category-count">11 篇</div>
+      <div class="category-count">13 篇</div>
     </div>
     <div class="cards-grid">
+      <div class="report-card" data-date="2026-04-24" style="--card-accent:#c0392b" data-category="用户洞察" data-genre="手游 PC主机" data-region="欧美" data-source="袤则咨询" data-topics="用户研究 文化趋势 情绪营销" data-keywords="欧美社交趋势 袤则咨询 AI纪元 Z世代 价值自证 builder creator 男性气质重塑 阳刚气质 迟熟青年 住房危机 通胀 低成本生活 心智极简主义 活人感溢价 AI真实性 Chinamaxxing 中式养生 热水 冥想 TikTok 风控亲密 可爱侵略 童趣视觉 情绪价值 2026">
+        <div class="card-top"><div class="card-title">2026年欧美社交趋势观察报告</div><div class="card-meta"><div class="card-source">袤则咨询</div><div class="card-date">2026.04.24</div></div></div>
+        <div class="card-topics"><span class="topic-tag">用户研究</span><span class="topic-tag">文化趋势</span><span class="topic-tag">情绪营销</span></div>
+        <div class="card-summary collapsed">在AI纪元背景下，欧美社会结构重塑催生十大关键社交趋势：①"价值自证"——年轻人不再以职位定义自己，强调创造力（简介多用"builder/creator"）；②"男性气质重塑"——传统阳刚气质解构后走向极端阳刚或"表演型暖男"两极；③"迟熟青年"——主动延后经济独立，将其归咎于住房危机与通胀等结构性问题；④"低成本生活"——从大都市迁往低成本城市，追求心智极简主义；⑤"活人感溢价"——AI泛滥时代开始追求真实带瑕疵的内容；⑥"Chinamaxxing（中式养生）"——喝热水、冥想等习惯在TikTok走红，被西方年轻人主动模仿；⑦"风控亲密"——以理性、怀疑姿态进入亲密关系；⑧"可爱侵略"——借助童趣视觉设计获取低成本情绪价值，抵御宏观压力。</div>
+        <div class="card-footer"><div class="card-tags"><span class="tag">欧美Z世代</span><span class="tag">Chinamaxxing</span><span class="tag">活人感溢价</span><span class="tag">迟熟青年</span><span class="tag">情绪价值</span></div><a href="https://docs.xiaoshanim.com/i/nodes/7gNKMlbrq3WXAA1ynOyI4Xv5p6Ad9nL1?utm_scene=person_space# 「报告」" target="_blank" class="read-btn">阅读全文 <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8L8 2M8 2H4M8 2V6"/></svg></a></div>
+      </div>
+      <div class="report-card" data-date="2026-04-24" style="--card-accent:#c0392b" data-category="用户洞察" data-genre="手游 PC主机" data-region="中国" data-source="腾讯营销洞察" data-topics="用户研究 社区运营 AI技术" data-keywords="QQ 腾讯营销洞察 TMI 18-35岁 年轻人 赛博真我 精神拼图 真实联结 安全表达 58% 视野 轻度社交 扩圈 熟人社交 陌生人社交 兴趣社交 广场社交 视觉化表达 SVIP 月均6次装扮 空间 56% AI妙绘 AI总结 45% 游戏 二次元 数码 漫展 赛事 校园频道 内推实习 闲置交易 QQ秀 表情包 星巴克 资生堂 IP联动 亿级曝光 2026">
+        <div class="card-top"><div class="card-title">年轻世代QQ社交行为洞察报告（2026）</div><div class="card-meta"><div class="card-source">腾讯营销洞察</div><div class="card-date">2026.04.24</div></div></div>
+        <div class="card-topics"><span class="topic-tag">用户研究</span><span class="topic-tag">社区运营</span><span class="topic-tag">AI技术</span></div>
+        <div class="card-summary collapsed">报告聚焦18-35岁年轻群体，揭示QQ作为其"赛博真我天地"的独特价值：58%的人渴望通过QQ线上社交开拓视野，QQ被认为比其他软件更能实现轻度社交和扩圈。四类社交形态并存：展现真我的熟人社交、情绪有回应的陌生人社交、互助氛围浓厚的兴趣社交和充满造梗乐趣的广场社交。年轻人热衷视觉化表达，SVIP用户月均更换6次装扮，空间活跃占比56%；AI功能（AI妙绘、AI总结）使用率超45%，AI已成"科技伙伴"。游戏、二次元、数码是三大核心兴趣圈层，超80%用户将漫展、赛事素材通过QQ分享实现闭环；校园频道则是资料共享、内推实习和闲置交易的重要流转中心。QQ通过表情包、QQ秀等IP与星巴克、资生堂等品牌联动，实现亿级曝光。</div>
+        <div class="card-footer"><div class="card-tags"><span class="tag">QQ生态</span><span class="tag">年轻圈层</span><span class="tag">视觉化表达</span><span class="tag">AI陪伴</span><span class="tag">IP联名营销</span></div><a href="https://docs.xiaoshanim.com/i/nodes/7gNKMlbrq3WXAA1ynOyI4Xv5p6Ad9nL1?utm_scene=person_space# 「报告」" target="_blank" class="read-btn">阅读全文 <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8L8 2M8 2H4M8 2V6"/></svg></a></div>
+      </div>
       <div class="report-card" data-date="2026-04-10" style="--card-accent:#c0392b" data-category="用户洞察" data-genre="潮玩" data-region="中国 全球" data-source="识微科技" data-topics="IP运营 内容营销 全球化战略" data-keywords="Labubu 潮玩 泡泡玛特 Z世代 盲盒 反内卷 情感消费 成人玩具 叛逆感 毛绒公仔 首发经济 剑网2025 版权保护 Lisa 杨幂 可口可乐 优衣库 KOL UGC 柏林快闪 复购率52% 饥饿营销 小红书 二手市场 文化出海 识微科技">
         <div class="card-top"><div class="card-title">2025年Labubu爆火热度洞察报告</div><div class="card-meta"><div class="card-source">识微科技</div><div class="card-date">2026.04.10</div></div></div>
         <div class="card-topics"><span class="topic-tag">IP运营</span><span class="topic-tag">内容营销</span><span class="topic-tag">全球化战略</span></div>
