@@ -211,21 +211,21 @@ mark.hl{background:var(--hl);color:var(--text);border-radius:2px;padding:0 1px}
     <span class="search-clear" id="searchClear" onclick="clearSearch()">×</span>
   </div>
   <div class="header-meta">
-    <div>版本 <strong>v2.0</strong> &nbsp;·&nbsp; 更新 <strong>2026-06-16</strong></div>
-    <div>共收录 <strong id="header-count">103</strong> 篇报告</div>
+    <div>版本 <strong>v2.0</strong> &nbsp;·&nbsp; 更新 <strong>2026-06-29</strong></div>
+    <div>共收录 <strong id="header-count">109</strong> 篇报告</div>
   </div>
 </header>
 <div class="layout">
 <aside class="sidebar">
   <nav class="sidebar-nav">
     <div class="nav-label">分类导航</div>
-    <div class="nav-item active" onclick="setCatFilter('all',this)"><div class="nav-dot" style="background:#c0392b"></div><span class="nav-text">全部报告</span><span class="nav-count" id="nav-all-count">103</span></div>
-    <div class="nav-item" onclick="setCatFilter('市场研究',this)"><div class="nav-dot" style="background:#a07830"></div><span class="nav-text">市场研究</span><span class="nav-count" id="nav-count-市场研究">51</span></div>
-    <div class="nav-item" onclick="setCatFilter('产品分析',this)"><div class="nav-dot" style="background:#2e7d6a"></div><span class="nav-text">产品分析</span><span class="nav-count" id="nav-count-产品分析">11</span></div>
-    <div class="nav-item" onclick="setCatFilter('AI与技术',this)"><div class="nav-dot" style="background:#2c5f8a"></div><span class="nav-text">AI 与技术</span><span class="nav-count" id="nav-count-AI与技术">9</span></div>
+    <div class="nav-item active" onclick="setCatFilter('all',this)"><div class="nav-dot" style="background:#c0392b"></div><span class="nav-text">全部报告</span><span class="nav-count" id="nav-all-count">109</span></div>
+    <div class="nav-item" onclick="setCatFilter('市场研究',this)"><div class="nav-dot" style="background:#a07830"></div><span class="nav-text">市场研究</span><span class="nav-count" id="nav-count-市场研究">52</span></div>
+    <div class="nav-item" onclick="setCatFilter('产品分析',this)"><div class="nav-dot" style="background:#2e7d6a"></div><span class="nav-text">产品分析</span><span class="nav-count" id="nav-count-产品分析">12</span></div>
+    <div class="nav-item" onclick="setCatFilter('AI与技术',this)"><div class="nav-dot" style="background:#2c5f8a"></div><span class="nav-text">AI 与技术</span><span class="nav-count" id="nav-count-AI与技术">10</span></div>
     <div class="nav-item" onclick="setCatFilter('出海战略',this)"><div class="nav-dot" style="background:#9a5020"></div><span class="nav-text">出海战略</span><span class="nav-count" id="nav-count-出海战略">14</span></div>
-    <div class="nav-item" onclick="setCatFilter('用户洞察',this)"><div class="nav-dot" style="background:#7a4080"></div><span class="nav-text">用户洞察</span><span class="nav-count" id="nav-count-用户洞察">17</span></div>
-    <div class="nav-item" onclick="setCatFilter('企业研究',this)"><div class="nav-dot" style="background:#3a6b3a"></div><span class="nav-text">企业研究</span><span class="nav-count" id="nav-count-企业研究">1</span></div>
+    <div class="nav-item" onclick="setCatFilter('用户洞察',this)"><div class="nav-dot" style="background:#7a4080"></div><span class="nav-text">用户洞察</span><span class="nav-count" id="nav-count-用户洞察">19</span></div>
+    <div class="nav-item" onclick="setCatFilter('企业研究',this)"><div class="nav-dot" style="background:#3a6b3a"></div><span class="nav-text">企业研究</span><span class="nav-count" id="nav-count-企业研究">2</span></div>
   </nav>
   <div class="sidebar-footer">战略发展部<br>内部使用 · 请勿外传</div>
 </aside>
@@ -233,7 +233,7 @@ mark.hl{background:var(--hl);color:var(--text);border-radius:2px;padding:0 1px}
   <div class="overview-bar">
     <div class="overview-card" style="--ov-color1:#c0392b;--ov-color2:#e74c3c;--ov-glow:rgba(192,57,43,.12)">
       <div class="ov-icon">📄</div>
-      <div class="ov-num" id="ov-reports">103</div>
+      <div class="ov-num" id="ov-reports">109</div>
       <div class="ov-label">收录报告</div>
       <div class="ov-sub">持续更新中</div>
     </div>
@@ -245,7 +245,7 @@ mark.hl{background:var(--hl);color:var(--text);border-radius:2px;padding:0 1px}
     </div>
     <div class="overview-card" style="--ov-color1:#2980b9;--ov-color2:#3498db;--ov-glow:rgba(41,128,185,.12)">
       <div class="ov-icon">🏢</div>
-      <div class="ov-num" id="ov-sources">69</div>
+      <div class="ov-num" id="ov-sources">70</div>
       <div class="ov-label">来源机构</div>
       <div class="ov-sub">券商 · 数据 · 平台</div>
     </div>
@@ -360,6 +360,7 @@ mark.hl{background:var(--hl);color:var(--text);border-radius:2px;padding:0 1px}
         <span class="tn-tag source" data-dim="source" data-val="阿里云">阿里云</span>
         <span class="tn-tag source" data-dim="source" data-val="北大国发院">北大国发院</span>
         <span class="tn-tag source" data-dim="source" data-val="哔哩哔哩">哔哩哔哩</span>
+        <span class="tn-tag source" data-dim="source" data-val="克劳锐">克劳锐</span>
         <span class="tn-tag source" data-dim="source" data-val="德勤">德勤</span>
         <span class="tn-tag source" data-dim="source" data-val="点点数据">点点数据</span>
         <span class="tn-tag source" data-dim="source" data-val="东吴证券">东吴证券</span>
@@ -424,10 +425,15 @@ mark.hl{background:var(--hl);color:var(--text);border-radius:2px;padding:0 1px}
     <div class="category-header">
       <div class="cat-stripe" style="background:#a07830"></div>
       <div class="category-name">市场研究</div>
-      <div class="category-count">51 篇</div>
+      <div class="category-count">52 篇</div>
     </div>
     <div class="cards-grid">
-      <div class="report-card" data-date="2026-06-16" style="--card-accent:#a07830" data-category="市场研究" data-genre="手游 小游戏" data-region="全球 北美 日本 韩国" data-source="广大大 & MAF" data-topics="市场规模 买量投放 变现策略" data-keywords="2026年Q1 中轻度手游 全球手游 广大大 MAF 8.45万广告主 同比14.7% 新广告主9300 新投占比10.9% 投新素材广告主82.7% 新素材占比60.3% 桌面类 461条 策略 450条 娱乐场 38.94% 同比8.33% 激励广告 UA 2026">
+      <div class="report-card" data-date="2026-06-29" style="--card-accent:#a07830" data-category="市场研究" data-genre="手游 短视频" data-region="中国" data-source="克劳锐" data-topics="市场规模 内容营销 买量投放" data-keywords="2025-2026 广告主 KOL营销 市场盘点 克劳锐 840亿元 873亿元 腰部达人 尾部达人 近80% AI产品 网服投放 美妆 时尚 运动户外 内容共创 全周期运营 精细化ROI 2026">
+        <div class="card-top"><div class="card-title">2025-2026广告主KOL营销市场盘点及展望报告</div><div class="card-meta"><div class="card-source">克劳锐</div><div class="card-date">2026.06.29</div></div></div>
+        <div class="card-topics"><span class="topic-tag">KOL营销</span><span class="topic-tag">内容共创</span><span class="topic-tag">买量投放</span></div>
+        <div class="card-summary collapsed">2025年KOL投放规模约840亿元，较2024年的873亿元继续小幅回落；腰尾部达人凭借圈层精准、响应灵活和成本可控，占据近80%投放份额。AI产品成为网服投放的重要新增量，美妆仍居首位，时尚、运动户外增长明显。品牌合作正由单次内容采买转向达人共创、配套投流和全周期运营，更看重搜索、收藏、评论关键词及转化等精细化指标。</div>
+        <div class="card-footer"><div class="card-tags"><span class="tag">KOL营销</span><span class="tag">中长尾达人</span><span class="tag">全周期运营</span><span class="tag">内容共创</span><span class="tag">AI产品投放</span></div><a href="https://docs.xiaoshanim.com/i/nodes/7gNKMlbrq3WXAA1ynOyI4Xv5p6Ad9nL1?utm_scene=person_space" target="_blank" class="read-btn">阅读全文 <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8L8 2M8 2H4M8 2V6"/></svg></a></div>
+      </div>      <div class="report-card" data-date="2026-06-16" style="--card-accent:#a07830" data-category="市场研究" data-genre="手游 小游戏" data-region="全球 北美 日本 韩国" data-source="广大大 & MAF" data-topics="市场规模 买量投放 变现策略" data-keywords="2026年Q1 中轻度手游 全球手游 广大大 MAF 8.45万广告主 同比14.7% 新广告主9300 新投占比10.9% 投新素材广告主82.7% 新素材占比60.3% 桌面类 461条 策略 450条 娱乐场 38.94% 同比8.33% 激励广告 UA 2026">
         <div class="card-top"><div class="card-title">2026年Q1全球市场中轻度手游营销报告</div><div class="card-meta"><div class="card-source">广大大 & MAF</div><div class="card-date">2026.06.16</div></div></div>
         <div class="card-topics"><span class="topic-tag">中轻度手游</span><span class="topic-tag">买量投放</span><span class="topic-tag">素材竞争</span></div>
         <div class="card-summary collapsed">2026年Q1全球手游月均在投广告主约8.45万，同比增长14.7%；月均新广告主约9300个，新投占比10.9%。素材竞争继续加剧，月均投新素材广告主占比82.7%，3月新素材占比达60.3%。桌面类以季度均461条素材成为最卷赛道，娱乐场广告主占比38.94%，同比提升8.33个百分点。</div>
@@ -740,10 +746,15 @@ mark.hl{background:var(--hl);color:var(--text);border-radius:2px;padding:0 1px}
     <div class="category-header">
       <div class="cat-stripe" style="background:#2980b9"></div>
       <div class="category-name">产品分析</div>
-      <div class="category-count">11 篇</div>
+      <div class="category-count">12 篇</div>
     </div>
     <div class="cards-grid">
-      <div class="report-card" data-date="2026-04-10" style="--card-accent:#2980b9" data-category="产品分析" data-genre="动漫 手游" data-region="中国" data-source="哔哩哔哩" data-topics="IP运营 内容营销 受众拓展" data-keywords="凡人修仙传 B站 年番 3D动画 国创 网文 凡人流 男频 1483万字 82万收藏 微博5亿阅读量 泛二次元 男性83.39% 女性拓圈 玄骨上人 番外 20城点映 交响音乐会 自贡灯节 非遗 梦幻西游 中插剧场 王老吉 定制番外 脉动 贴片 IP联名 商业授权">
+      <div class="report-card" data-date="2026-06-29" style="--card-accent:#2980b9" data-category="产品分析" data-genre="手游 PC主机" data-region="中国" data-source="伽马数据" data-topics="产品趋势 AI技术 方法论" data-keywords="2026 鸿蒙游戏 生态发展 伽马数据 中国游戏市场 3507.89亿元 同比7.68% 用户6.83亿 6000万台 30000款游戏 1000家合作伙伴 功耗下降10% 卡顿下降60% 下载等待缩短80% 活跃留存提升5% 软硬芯云协同 全场景 开发者赋能 存量增长">
+        <div class="card-top"><div class="card-title">2026鸿蒙游戏生态发展报告</div><div class="card-meta"><div class="card-source">伽马数据</div><div class="card-date">2026.06.29</div></div></div>
+        <div class="card-topics"><span class="topic-tag">鸿蒙游戏</span><span class="topic-tag">全场景体验</span><span class="topic-tag">开发者赋能</span></div>
+        <div class="card-summary collapsed">2025年中国游戏市场收入达3507.89亿元，同比增长7.68%，但用户仅增长1.35%至6.83亿，产业转向存量深耕。鸿蒙设备截至2026年5月达6000万台，已覆盖3万余款游戏、1000余家合作伙伴；部分接入案例实现功耗下降10%、卡顿下降60%、下载等待缩短80%、活跃留存提升5%以上。报告将鸿蒙定位为兼具全场景体验、技术优化和开发者服务的新增长入口。</div>
+        <div class="card-footer"><div class="card-tags"><span class="tag">鸿蒙游戏</span><span class="tag">软硬芯云协同</span><span class="tag">全场景体验</span><span class="tag">开发者赋能</span><span class="tag">存量增长</span></div><a href="https://docs.xiaoshanim.com/i/nodes/7gNKMlbrq3WXAA1ynOyI4Xv5p6Ad9nL1?utm_scene=person_space" target="_blank" class="read-btn">阅读全文 <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8L8 2M8 2H4M8 2V6"/></svg></a></div>
+      </div>      <div class="report-card" data-date="2026-04-10" style="--card-accent:#2980b9" data-category="产品分析" data-genre="动漫 手游" data-region="中国" data-source="哔哩哔哩" data-topics="IP运营 内容营销 受众拓展" data-keywords="凡人修仙传 B站 年番 3D动画 国创 网文 凡人流 男频 1483万字 82万收藏 微博5亿阅读量 泛二次元 男性83.39% 女性拓圈 玄骨上人 番外 20城点映 交响音乐会 自贡灯节 非遗 梦幻西游 中插剧场 王老吉 定制番外 脉动 贴片 IP联名 商业授权">
         <div class="card-top"><div class="card-title">《凡人修仙传》项目IP营销方案</div><div class="card-meta"><div class="card-source">哔哩哔哩</div><div class="card-date">2026.04.10</div></div></div>
         <div class="card-topics"><span class="topic-tag">IP运营</span><span class="topic-tag">内容营销</span><span class="topic-tag">受众拓展</span></div>
         <div class="card-summary collapsed">《凡人修仙传》作为网文"凡人流"开山始祖，被打造为B站首个年番3D动画巨制，原著1483万字、全网收藏超82万、微博主话题阅读量超5亿。核心粉丝为高讨论欲的泛二次元男性群体（占比83.39%），营销策略在稳固男频国创基本盘的同时，借助角色粉和泛娱乐群体突破女性及增量受众。整合营销包含全国20城千人超前点映、沉浸式交响音乐会、自贡非遗灯节联动，以及以"玄骨上人"为核心的特别番外拓展内容宇宙。商业化提供深度定制植入（如梦幻西游"中插剧场"、王老吉"定制番外"、脉动"创意贴片"），并全面开放数码3C、日用护肤、国风服饰、食品餐饮等领域实体联名与商品授权。</div>
@@ -815,10 +826,15 @@ mark.hl{background:var(--hl);color:var(--text);border-radius:2px;padding:0 1px}
     <div class="category-header">
       <div class="cat-stripe" style="background:#8e44ad"></div>
       <div class="category-name">AI与技术</div>
-      <div class="category-count">9 篇</div>
+      <div class="category-count">10 篇</div>
     </div>
     <div class="cards-grid">
-      <div class="report-card" data-date="2026-03-17" style="--card-accent:#8e44ad" data-category="AI与技术" data-genre="手游" data-region="全球" data-source="阿里云" data-topics="AI技术 内容营销 变现策略" data-keywords="AI营销 价值重构 智能算法 GEO 生成式引擎优化 AI Agent 语义搜索 洞察流 创意流 投放流 增长流 跨文化 大模型 操作系统 自然语言 阿里云 易点天下 2026">
+      <div class="report-card" data-date="2026-06-29" style="--card-accent:#8e44ad" data-category="AI与技术" data-genre="手游 PC主机" data-region="中国" data-source="点点数据" data-topics="AI技术 方法论 产品趋势" data-keywords="2026 中国上市游戏公司 AI渗透率 点点数据 20家 年报 554条 617条 19家降本增效 7家玩家体验 15家平台创新 游戏研发 广告投放 客服 智能NPC AI陪玩 巨人网络 网龙 世纪华通 研运全链路">
+        <div class="card-top"><div class="card-title">2026年中国上市游戏公司AI渗透率报告</div><div class="card-meta"><div class="card-source">点点数据</div><div class="card-date">2026.06.29</div></div></div>
+        <div class="card-topics"><span class="topic-tag">游戏AI</span><span class="topic-tag">降本增效</span><span class="topic-tag">研运全链路</span></div>
+        <div class="card-summary collapsed">基于20家上市游戏公司年报，AI实质披露条目由2024年的554条增至2025年的617条。19家公司已将AI用于研发、投放、客服等降本增效环节，玩家可感知的产品体验仅覆盖7家，行业仍处于“披露普遍化”向“价值验证”过渡阶段。巨人、网龙、世纪华通等已披露美术生成、工作量或生产效率改善，但报告强调AI投入与业绩增长不能简单建立因果关系。</div>
+        <div class="card-footer"><div class="card-tags"><span class="tag">游戏AI渗透</span><span class="tag">降本增效</span><span class="tag">玩家体验</span><span class="tag">上市游戏公司</span><span class="tag">研运全链路</span></div><a href="https://docs.xiaoshanim.com/i/nodes/7gNKMlbrq3WXAA1ynOyI4Xv5p6Ad9nL1?utm_scene=person_space" target="_blank" class="read-btn">阅读全文 <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8L8 2M8 2H4M8 2V6"/></svg></a></div>
+      </div>      <div class="report-card" data-date="2026-03-17" style="--card-accent:#8e44ad" data-category="AI与技术" data-genre="手游" data-region="全球" data-source="阿里云" data-topics="AI技术 内容营销 变现策略" data-keywords="AI营销 价值重构 智能算法 GEO 生成式引擎优化 AI Agent 语义搜索 洞察流 创意流 投放流 增长流 跨文化 大模型 操作系统 自然语言 阿里云 易点天下 2026">
         <div class="card-top"><div class="card-title">2026年全球AI营销趋势与价值白皮书</div><div class="card-meta"><div class="card-source">阿里云 & 易点天下</div><div class="card-date">2026.03.17</div></div></div>
         <div class="card-topics"><span class="topic-tag">AI技术</span><span class="topic-tag">内容营销</span><span class="topic-tag">变现策略</span></div>
         <div class="card-summary collapsed">全球营销正从"流量分配"升级为"价值重构"，智能算法替代人工经验完成预判，营销工作本质从"执行者"变为"管理者"。GEO（生成式引擎优化）成为品牌捕捉商业查询流量的核心路径，旨在提升品牌在AI回答中的可见性与引用率。通过"洞察流、创意流、投放流、增长流"四大维度协同，实现跨文化内容的规模化生产和实时调度。大模型将逐步演变为"操作系统"，自然语言成为新的编程语言。</div>
@@ -971,10 +987,21 @@ mark.hl{background:var(--hl);color:var(--text);border-radius:2px;padding:0 1px}
     <div class="category-header">
       <div class="cat-stripe" style="background:#c0392b"></div>
       <div class="category-name">用户洞察</div>
-      <div class="category-count">17 篇</div>
+      <div class="category-count">19 篇</div>
     </div>
     <div class="cards-grid">
-      <div class="report-card" data-date="2026-06-16" style="--card-accent:#c0392b" data-category="用户洞察" data-genre="二次元 动漫 IP" data-region="中国" data-source="哔哩哔哩" data-topics="用户研究 IP运营 内容营销" data-keywords="2026 哔哩哔哩 国创通案 B站 国创 二次元 IP商业化 2025 中国二次元行业规模 5000亿元 泛二次元用户 5.26亿 B站二次元用户 2.7亿 MAU八成 国创用户 62% 凡人修仙传 周边众筹 4000万元 哪吒2 淘宝周边消费 3亿元 线下 品牌联名 2026">
+      <div class="report-card" data-date="2026-06-29" style="--card-accent:#c0392b" data-category="用户洞察" data-genre="短视频" data-region="中国" data-source="克劳锐" data-topics="用户研究 内容营销 注意力经济" data-keywords="2026 哔哩哔哩 创作者生态 克劳锐 万粉创作者 1547万 B站 月活3.66亿 日活1.13亿 日均107分钟 会员12个月留存80% 视频播客 6700万 同比130% UP主 内容共创 品牌信任 长尾内容资产">
+        <div class="card-top"><div class="card-title">2026哔哩哔哩创作者生态洞察报告</div><div class="card-meta"><div class="card-source">克劳锐</div><div class="card-date">2026.06.29</div></div></div>
+        <div class="card-topics"><span class="topic-tag">B站创作者</span><span class="topic-tag">UP主共创</span><span class="topic-tag">内容资产</span></div>
+        <div class="card-summary collapsed">2025年主要社交平台万粉创作者增至1547万，生态由规模扩张转向腰部驱动和内容提质。B站全年月活3.66亿、日活1.13亿，用户日均使用107分钟，正式会员12个月留存率达80%；视频播客用户超过6700万，同比增长130%。近九成用户信任UP主发布内容，品牌营销机会正从短期曝光转向专业转译、深度共创、评论互动和长尾内容资产沉淀。</div>
+        <div class="card-footer"><div class="card-tags"><span class="tag">B站创作者</span><span class="tag">UP主共创</span><span class="tag">视频播客</span><span class="tag">内容资产</span><span class="tag">品牌信任</span></div><a href="https://docs.xiaoshanim.com/i/nodes/7gNKMlbrq3WXAA1ynOyI4Xv5p6Ad9nL1?utm_scene=person_space" target="_blank" class="read-btn">阅读全文 <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8L8 2M8 2H4M8 2V6"/></svg></a></div>
+      </div>
+      <div class="report-card" data-date="2026-06-29" style="--card-accent:#c0392b" data-category="用户洞察" data-genre="" data-region="中国 全球" data-source="德勤" data-topics="用户研究 AI技术 人才招聘" data-keywords="2026 全球 Z世代 千禧一代 德勤 22595人 中国内地815人 工作AI 92% 管理层 86% 83% 首要职业目标5% 3% 经济压力 推迟人生决策46% 35% 稳定 技能积累 身心健康 价值观 组织留任">
+        <div class="card-top"><div class="card-title">2026年全球Z世代与千禧一代调研报告</div><div class="card-meta"><div class="card-source">德勤</div><div class="card-date">2026.06.29</div></div></div>
+        <div class="card-topics"><span class="topic-tag">代际研究</span><span class="topic-tag">职场AI</span><span class="topic-tag">组织留任</span></div>
+        <div class="card-summary collapsed">调研覆盖全球22595人，其中中国内地815人。中国内地Z世代和千禧一代日常工作使用AI的比例均达92%，但岗位适配、创造力和系统集成仍是主要障碍。86%的Z世代和83%的千禧一代愿意未来担任管理层，真正将其列为首要目标的仅5%和3%；经济压力已使46%和35%的受访者推迟重大人生决策，稳定、技能积累、身心健康和价值观契合成为组织留才重点。</div>
+        <div class="card-footer"><div class="card-tags"><span class="tag">Z世代</span><span class="tag">千禧一代</span><span class="tag">职场AI</span><span class="tag">职业稳定</span><span class="tag">组织留任</span></div><a href="https://docs.xiaoshanim.com/i/nodes/7gNKMlbrq3WXAA1ynOyI4Xv5p6Ad9nL1?utm_scene=person_space" target="_blank" class="read-btn">阅读全文 <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8L8 2M8 2H4M8 2V6"/></svg></a></div>
+      </div>      <div class="report-card" data-date="2026-06-16" style="--card-accent:#c0392b" data-category="用户洞察" data-genre="二次元 动漫 IP" data-region="中国" data-source="哔哩哔哩" data-topics="用户研究 IP运营 内容营销" data-keywords="2026 哔哩哔哩 国创通案 B站 国创 二次元 IP商业化 2025 中国二次元行业规模 5000亿元 泛二次元用户 5.26亿 B站二次元用户 2.7亿 MAU八成 国创用户 62% 凡人修仙传 周边众筹 4000万元 哪吒2 淘宝周边消费 3亿元 线下 品牌联名 2026">
         <div class="card-top"><div class="card-title">2026哔哩哔哩国创通案</div><div class="card-meta"><div class="card-source">哔哩哔哩</div><div class="card-date">2026.06.16</div></div></div>
         <div class="card-topics"><span class="topic-tag">国创</span><span class="topic-tag">二次元用户</span><span class="topic-tag">IP商业化</span></div>
         <div class="card-summary collapsed">B站将国创作为二次元IP商业化核心入口：2025年中国二次元行业规模约5000亿元，泛二次元用户5.26亿；B站二次元用户2.7亿，约占MAU八成。国创用户占二次元用户62%，《凡人修仙传》周边众筹超4000万元，《哪吒2》带动淘宝周边消费超3亿元，说明国创已从内容观看延伸到周边、线下和品牌联名消费。</div>
@@ -1082,10 +1109,15 @@ mark.hl{background:var(--hl);color:var(--text);border-radius:2px;padding:0 1px}
     <div class="category-header">
       <div class="cat-stripe" style="background:#16a085"></div>
       <div class="category-name">企业研究</div>
-      <div class="category-count">1 篇</div>
+      <div class="category-count">2 篇</div>
     </div>
     <div class="cards-grid">
-      <div class="report-card" data-date="2026-01-15" style="--card-accent:#3a6b3a" data-category="企业研究" data-topics="市场规模 AI技术 产品趋势" data-keywords="中国游戏企业 上市 PE 恺英网络 祖龙娱乐 DeepSeek NPC 策略 射击 伽马数据 2025" data-genre="手游 PC主机" data-region="中国" data-source="伽马数据">
+      <div class="report-card" data-date="2026-06-29" style="--card-accent:#3a6b3a" data-category="企业研究" data-genre="潮玩" data-region="中国 欧美 全球" data-source="高盛" data-topics="市场规模 IP运营 全球化战略" data-keywords="中国IP零售商 玩具行业 追踪 高盛 泡泡玛特 增速放缓 2026年5月 天猫 抖音 同比29% 4月95% 美国信用卡销售下降36% Labubu 折价30% 45% 名创优品 线上销售增长21% 布鲁可 新品 多IP 潮玩">
+        <div class="card-top"><div class="card-title">中国IP零售商及玩具行业追踪报告：泡泡玛特增速放缓</div><div class="card-meta"><div class="card-source">高盛</div><div class="card-date">2026.06.29</div></div></div>
+        <div class="card-topics"><span class="topic-tag">泡泡玛特</span><span class="topic-tag">潮玩IP</span><span class="topic-tag">全球化经营</span></div>
+        <div class="card-summary collapsed">泡泡玛特5月国内天猫与抖音销售同比增长29%，较4月的95%明显降速；美国信用卡销售同比下降36%，虽较4月的下降43%收窄，二季度累计仍承压。新品动销和二手溢价走弱，部分Labubu样本折价扩大至30%—45%。同期名创优品线上销售增长21%，布鲁可加快成熟IP新品投放，显示潮玩赛道增长正由单一爆款转向多IP供给与持续上新能力。</div>
+        <div class="card-footer"><div class="card-tags"><span class="tag">泡泡玛特</span><span class="tag">潮玩IP</span><span class="tag">中国线上销售</span><span class="tag">美国市场</span><span class="tag">新品动销</span></div><a href="https://docs.xiaoshanim.com/i/nodes/7gNKMlbrq3WXAA1ynOyI4Xv5p6Ad9nL1?utm_scene=person_space" target="_blank" class="read-btn">阅读全文 <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8L8 2M8 2H4M8 2V6"/></svg></a></div>
+      </div>      <div class="report-card" data-date="2026-01-15" style="--card-accent:#3a6b3a" data-category="企业研究" data-topics="市场规模 AI技术 产品趋势" data-keywords="中国游戏企业 上市 PE 恺英网络 祖龙娱乐 DeepSeek NPC 策略 射击 伽马数据 2025" data-genre="手游 PC主机" data-region="中国" data-source="伽马数据">
         <div class="card-top"><div class="card-title">2025年中国上市非上市游戏企业竞争力报告</div><div class="card-meta"><div class="card-source">伽马数据</div><div class="card-date">2026.01.15</div></div></div>
         <div class="card-topics"><span class="topic-tag">市场规模</span><span class="topic-tag">AI技术</span><span class="topic-tag">产品趋势</span></div>
         <div class="card-summary collapsed">中国上市游戏企业估值普遍低于海外，94.1%的企业PE不足30，存在被低估状况。策略类和射击类流水显著增长，得益于商业模式迭代和细分赛道深挖。祖龙娱乐接入DeepSeek后，《龙族：卡塞尔之门》智能NPC带动玩家日均交互时长提升42%。</div>
